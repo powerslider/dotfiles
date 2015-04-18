@@ -1,0 +1,56 @@
+#!/bin/sh
+# $XConsortium: xinitrc.cpp,v 1.4 91/08/22 11:41:34 rws Exp $
+
+userresources=$HOME/.Xresources
+usermodmap=$HOME/.Xmodmap
+
+#Autorepeat for my taste
+xset r rate 150 30
+
+#set the an alternative layout and switch with caps lock
+setxkbmap -model pc104 -option "grp:alt_shift_toggle" -layout "us,bg" -variant "dvorak,dvorak_phonetic"
+
+#some fonts on arch are installed in local
+if [ -d /usr/share/fonts/local ]; then
+    xset +fp /usr/share/fonts/local
+    xset fp rehash
+fi
+
+# merge in defaults and keymaps
+if [ -f $userresources ]; then
+    xrdb -merge $userresources
+fi
+
+if [ -f $usermodmap ]; then
+    xmodmap $usermodmap
+fi
+
+export BROWSER=`which firefox`
+export EDITOR=`which gvim`
+export FILE_MANAGER_APP=`which nautilus`
+export VIDEO_APP=`which mplayer`
+
+#java sane options in 21 century...
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd -Dswing.aatext=true'
+# use -Dawt.useSystemAAFontSettings=lcd -Dswing.aatext=true in your applications
+# if the above doesn't work - on some distros it doesn't
+
+#use syndaemon to disable touchpad while typing if it is installed!
+syndaemon=`which syndaemon`
+if [ ! -z "${syndaemon}" ];then
+    $syndaemon -t -k -i 1 -d
+fi
+
+
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+    for f in /etc/X11/xinit/xinitrc.d/* ; do
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
+fi
+
+# start some nice programs
+if [ -f $HOME/.Xclients ]; then
+    exec $HOME/.Xclients
+fi
+

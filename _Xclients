@@ -1,0 +1,41 @@
+# Startup configuration
+
+xbindkeys&
+session_cmd=$(cat <<EOF
+            #Volume Control program using pulseaudio
+            pavucontrol& \
+
+            #Network Manager program
+            nm-applet& \
+
+            #urxvt terminal daemon - runs all clients within one session
+            urxvtd& \
+            
+            #Dropbox daemon
+            dropboxd& \
+
+            #Redshift - program that adjusts the color temperature 
+            #of your screen according to your surroundings
+            gtk-redshift& \
+            
+            $BROWSER& \
+            
+            #Enable default compositing effects during a session
+            compton& \
+
+            #Display random wallpapers from my Dropbox wallpapers folder
+            feh --randomize --bg-fill ~/Dropbox/wallpapers/*& \
+            
+            devmon --exec-on-drive "$FILE_MANAGER_APP %d" \
+            --exec-on-disc  "$FILE_MANAGER_APP %d" \
+            --exec-on-video "$VIDEO_APP dvd://%f" \
+            --exec-on-audio "$VIDEO_APP cdda://%f"& \
+            i3
+EOF
+)
+
+if which ck-launch-session > /dev/null; then
+    exec ck-launch-session dbus-launch bash -c "$session_cmd"
+else
+    exec dbus-launch bash -c "$session_cmd"
+fi

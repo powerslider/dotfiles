@@ -1,0 +1,17 @@
+[user]
+	name = Tsvetan Dimitrov
+	email = tsvetan.dimitrov23@gmail.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = true
+# This one is reused by rsync and other tools
+[core]
+	excludesfile = ~/.cvsignore
+[push]
+	#default = simple
+[alias]
+    st = status
+[credential]
+	helper = cache --timeout=3600
