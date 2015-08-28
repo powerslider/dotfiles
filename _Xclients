@@ -30,7 +30,7 @@ session_cmd=$(cat <<EOF
             --exec-on-disc  "$FILE_MANAGER_APP %d" \
             --exec-on-video "$VIDEO_APP dvd://%f" \
             --exec-on-audio "$VIDEO_APP cdda://%f"& \
-            i3
+            awesome
 EOF
 )
 
