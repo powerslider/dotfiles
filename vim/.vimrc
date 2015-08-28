@@ -33,6 +33,8 @@ NeoBundle 'scrooloose/nerdcommenter'
 "see files and directories in a tree structure inside vim
 NeoBundle 'scrooloose/nerdtree'
 
+NeoBundle 'ervandew/supertab'
+
 "nice vim theme
 NeoBundle 'ciaranm/inkpot'
 
@@ -43,11 +45,11 @@ NeoBundle 'ciaranm/inkpot'
 "  \}
 
 "sparql support
-NeoBundle 'nikolavp/sparql.vim', {
-            \ 'autoload' : {
-            \   'filetypes': ['sparql'],
-            \ },
-            \}
+"NeoBundle 'nikolavp/sparql.vim', {
+"            \ 'autoload' : {
+"            \   'filetypes': ['sparql'],
+"            \ },
+"            \}
 
 "NeoBundle 'nikolavp/vim-jape', {
 "           \ 'autoload' : {
@@ -65,11 +67,20 @@ NeoBundle 'nikolavp/sparql.vim', {
 NeoBundle 'Valloric/YouCompleteMe'
 
 "scala support
-NeoBundle 'rosstimson/scala-vim-support', {
+"NeoBundle 'rosstimson/scala-vim-support', {
+"            \ 'autoload' : {
+"            \   'filetypes': ['scala'],
+"            \ },
+"            \}
+
+"latex support
+NeoBundle 'LaTeX-Box-Team/LaTeX-Box', {
             \ 'autoload' : {
-            \   'filetypes': ['scala'],
+            \   'filetypes': ['tex'],
             \ },
             \}
+
+
 
 "markdown support
 NeoBundle 'plasticboy/vim-markdown', {
@@ -77,6 +88,23 @@ NeoBundle 'plasticboy/vim-markdown', {
             \   'filetypes': ['md'],
             \ },
             \}
+
+
+"haskell support
+NeoBundle 'dag/vim2hs', {
+            \ 'autoload' : {
+            \   'filetypes': ['hs'],
+            \ },
+            \}
+
+
+"erlang support
+NeoBundle 'jimenezrick/vimerl', {
+            \ 'autoload' : {
+            \   'filetypes': ['erl'],
+            \ },
+            \}
+
 
 "needed by vim-notes
 NeoBundle 'xolox/vim-misc'
@@ -403,11 +431,14 @@ augroup END
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview 
 
+"let g:ycm_key_list_select_completion = ['<c-n>', '<down>']
+"let g:ycm_key_list_previous_completion = ['<c-p>', '<up>']
+"let g:supertabdefaultcompletiontype = '<c-n>'
 
-let g:UltiSnipsExpandTrigger="<C-e>"
+let g:UltiSnipsExpandTrigger="<c-e>"
 let g:UltiSnipsListSnippets="<c-tab>"
-let g:UltiSnipsJumpForwardTrigger="<C-e>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Space>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 vmap em :call ExtractMethod()<CR>
 function! ExtractMethod() range
