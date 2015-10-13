@@ -1,0 +1,33 @@
+export TERM=xterm-256color
+
+eval `dircolors ~/.dircolors`
+
+export PAGER=less
+export GIT_EDITOR=vim
+export GIT_PAGER=less
+export PYTHONSTARTUP=~/.pystartup
+export M2_HOME=/usr/local/apache-maven/apache-maven-3.3.3
+export M2=$M2_HOME/bin
+export QT_HOME=$HOME/programs/qtcreator/5.4/gcc_64
+export CUDA_HOME=/usr/local/cuda
+export CATALINA_HOME=/home/ceco/programs/tomcat8
+
+#Prefer vim for everything. Some strange distros like ubuntu have bad defaults like ed -.-
+export EDITOR=vim
+
+export PATH=$M2_HOME:$PATH
+export PATH=$M2:$PATH
+export MAVEN_OPTS="-XX:PermSize=512m -XX:MaxPermSize=512m -XX:MaxHeapSize=1024m"
+export UIMA_HOME="$HOME/Programs/apache-uima"
+export PATH="/home/nikolavp/Downloads/play-2.1.0:$PATH"
+export PATH="/opt/vagrant/bin:$PATH"
+export PATH="/opt/mysql/server-5.6/bin/:$PATH"
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$UIMA_HOME/bin:$PATH"
+export PATH="$QT_HOME/bin:$PATH"
+export PATH="$CUDA_HOME/bin:$PATH"
+
+export LD_LIBRARY_PATH="$CUDA_HOME/lib64:$LD_LIBRARY_PATH"
+
+#eval "$(rbenv init -)"
