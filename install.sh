@@ -12,9 +12,9 @@ for x in _*;do
     if [[ -h $HOME/$actual_file ]];then
         echo "Another version for $actual_file was found, skipping"
     else
-       rm ${symlink_target}
+       #rm ${symlink_target}
        echo "Creating symlink at ${symlink_target} ..."
-       ln -sf $PWD/"${x}" "_${symlink_target}"
+       ln -sf $PWD/"${x}" "${symlink_target}"
     fi
 done
 
@@ -23,6 +23,8 @@ test -h $HOME/.config/fontconfig/fonts.conf || ln -sf $PWD/_fonts.conf $HOME/.co
 test -h $HOME/.config/awesome || ln -sf $PWD/awesome $HOME/.config/awesome
 test -h $HOME/.config/compton.conf || ln -sf $PWD/_compton.conf $HOME/.config/compton.conf
 test -h $HOME/.config/beets/config.yaml || ln -sf $PWD/_beet_config.yaml $HOME/.config/beets/config.yaml
+
+test -h $HOME/.shell || ln -sf $PWD/_shell $HOME/.shell
 
 test -h $HOME/.vim || ln -sf $PWD/vim $HOME/.vim
 test -h $HOME/.vimrc || ln -sf $PWD/vim/.vimrc $HOME/.vimrc
