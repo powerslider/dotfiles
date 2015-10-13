@@ -1,0 +1,33 @@
+<application>
+  <component name="FindRecents">
+    <findStrings>
+      <find>RandomF</find>
+      <find>attemptToSplit</find>
+      <find>HoeffdingTree</find>
+      <find>HoeffdingA</find>
+      <find>attemptTo</find>
+      <find>label</find>
+      <find>Votes</find>
+      <find>getVotes</find>
+      <find>ActiveLearningNode</find>
+      <find>newLea</find>
+      <find>tieThreshold</find>
+      <find>binom</find>
+      <find>nn</find>
+      <find>newLE</find>
+      <find>getClassVotes</find>
+      <find>getVo</find>
+      <find>learnFrom</find>
+      <find>Pure</find>
+      <find>parentBranch</find>
+      <find>getChild</find>
+      <find>getClass</find>
+      <find>filter</find>
+      <find>SplitNode</find>
+      <find>newSplitNode</find>
+      <find>trainOs</find>
+      <find>attem</find>
+      <find>attempt</find>
+    </findStrings>
+  </component>
+</application>

@@ -1,0 +1,40 @@
+<application>
+  <component name="DimensionService">
+    <location key="WELCOME_SCREEN.0.0.1366.768" x="683" y="374" />
+    <location key="FileChooserDialogImpl.0.0.1366.768" x="466" y="49" />
+    <location key="NewModule_or_Project.wizard.0.0.1366.768" x="296" y="23" />
+    <location key="com.intellij.ide.util.TipDialog.0.0.1366.768" x="401" y="43" />
+    <location key="#com.intellij.openapi.projectRoots.ui.ProjectJdksEditor.0.0.1366.768" x="271" y="62" />
+    <location key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog.0.0.1366.768" x="513" y="297" />
+    <location key="SettingsEditor.0.0.1366.768" x="188" y="20" />
+    <location key="new project wizard.0.0.1366.768" x="316" y="48" />
+    <location key="#Project_Structure.0.0.1366.768" x="171" y="20" />
+    <location key="Maven.ArtifactSearchDialog.0.0.1366.768" x="221" y="62" />
+    <location key="#Edit_File_Template.0.0.1366.768" x="435" y="216" />
+    <location key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog.0.0.1366.768" x="313" y="174" />
+    <location key="chooseDestDirectoryDialog.0.0.1366.768" x="476" y="185" />
+    <location key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog.0.0.1366.768" x="421" y="155" />
+    <location key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog.0.0.1366.768" x="421" y="162" />
+    <location key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog.0.0.1366.768" x="89" y="324" />
+    <location key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages.0.0.1366.768" x="383" y="290" />
+    <location key="#com.intellij.ide.util.MemberChooser.0.0.1366.768" x="496" y="115" />
+    <location key="#com.intellij.refactoring.encapsulateFields.EncalpsulateFieldsDialog.0.0.1366.768" x="395" y="72" />
+    <location key="ProcessPopupWindow.0.0.1366.768" x="817" y="525" />
+    <location key="OptionsEditor.0.0.1366.768" x="171" y="20" />
+    <location key="EditParametersPopupWindow.0.0.1366.768" x="511" y="243" />
+    <location key="#Browse_JetBrains_Plugins_.0.0.1366.768" x="287" y="19" />
+    <location key="#com.intellij.fileTypes.FileTypeChooser.0.0.1366.768" x="380" y="204" />
+    <location key="extract.method.dialog.0.0.1366.768" x="421" y="197" />
+    <location key="#Auto_Import.0.0.1366.768" x="463" y="62" />
+    <size key="FileChooserDialogImpl.0.0.1366.768" width="466" height="564" />
+    <size key="ProcessPopupWindow.0.0.1366.768" width="545" height="182" />
+    <size key="GridCell.Tab.0.left.0.0.1366.768" width="1366" height="248" />
+    <size key="GridCell.Tab.0.center.0.0.1366.768" width="1366" height="248" />
+    <size key="GridCell.Tab.0.right.0.0.1366.768" width="1366" height="248" />
+    <size key="GridCell.Tab.0.bottom.0.0.1366.768" width="1366" height="248" />
+    <size key="GridCell.Tab.1.left.0.0.1366.768" width="1366" height="248" />
+    <size key="GridCell.Tab.1.center.0.0.1366.768" width="1366" height="248" />
+    <size key="GridCell.Tab.1.right.0.0.1366.768" width="1366" height="248" />
+    <size key="GridCell.Tab.1.bottom.0.0.1366.768" width="1366" height="248" />
+  </component>
+</application>
