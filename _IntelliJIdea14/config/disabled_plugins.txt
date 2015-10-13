@@ -1,4 +1,0 @@
-ClearcasePlugin
-CVS
-TFS
-hg4idea
