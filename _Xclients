@@ -12,7 +12,7 @@ session_cmd=$(cat <<EOF
             urxvtd& \
             
             #Dropbox daemon
-            dropboxd& \
+            dropbox start \
 
             #Redshift - program that adjusts the color temperature 
             #of your screen according to your surroundings
