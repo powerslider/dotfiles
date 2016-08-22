@@ -28,11 +28,12 @@ alias svndiff='svn diff --diff-cmd diff -x -uw'
 alias idea='$HOME/programs/idea/bin/idea.sh&'
 alias ecl='$HOME/programs/eclipse/eclipse&'
 alias qt='$HOME/programs/qtcreator/Tools/QtCreator/bin/qtcreator&'
-alias clion='$HOME/programs/clion-1.0/bin/clion.sh&'
+alias clion='$HOME/programs/clion/bin/clion.sh&'
+alias webstorm='$HOME/programs/webstorm/bin/webstorm.sh&'
+alias pycharm='$HOME/programs/pycharm/bin/pycharm.sh&'
+
 alias android='$HOME/programs/android-studio/bin/studio.sh&'
-
 alias geny='$HOME/programs/genymotion/genymotion/genymotion&'
-
 
 
 #Useful programs 
