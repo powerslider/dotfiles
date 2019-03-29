@@ -1,0 +1,12 @@
+configuration/spell
+/_mutt/mailboxes
+*.pyc
+/vim/spell
+vim/bundle/
+/_mutt/.cache
+/_mutt/.messages
+/_mutt/.tmp
+/_mutt/new
+/vim/.netrwhist
+/_shell/env.local
+/vim/view

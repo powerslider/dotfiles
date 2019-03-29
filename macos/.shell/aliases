@@ -1,0 +1,52 @@
+alias rm='rm -i'
+alias a=ls
+alias mv='mv -i'
+
+alias vim="stty stop '' -ixoff ; vim"
+#'Freezing' tty, so after any command terminal settings will be restored
+ttyctl -f
+
+#Browsers
+alias fire='firefox&'
+alias chrome='google-chrome&'
+
+alias open=xdg-open
+alias t=task
+
+#Maven commands
+alias mci='mvn clean install'
+alias mcp='mvn clean package'
+alias mcpr='mvn clean package -DperformRelease=true'
+alias fastmvn='mvn -T 10C'
+
+alias radioenergy='mplayer http://80.72.68.217:80/nrj.ogg'
+
+#Ignore whitespace in svn
+alias svndiff='svn diff --diff-cmd diff -x -uw'
+
+#IDEs
+alias idea='$HOME/programs/idea/bin/idea.sh&'
+alias ecl='$HOME/programs/eclipse/eclipse&'
+alias qt='$HOME/programs/qtcreator/Tools/QtCreator/bin/qtcreator&'
+alias clion='$HOME/programs/clion-1.0/bin/clion.sh&'
+alias android='$HOME/programs/android-studio/bin/studio.sh&'
+
+alias geny='$HOME/programs/genymotion/genymotion/genymotion&'
+
+
+
+#Useful programs 
+alias aris='javaws $HOME/programs/aris/express.jnlp&'
+
+#Windows stuff
+alias fdiba='/media/disk_d/Documents/Ceco/fdiba_git'
+alias d='/media/disk_d'
+alias books='/media/disk_d/Documents/Ceco/Programming'
+
+alias jabref='java -jar $HOME/programs/jabref/*.jar&'
+alias moa='cd $HOME/programs/weka-moa-gui; java -cp .:moa.jar:weka.jar:$HOME/git-repos/hli15_3treepal/moa-al/moa-al-stream/target/moa-al-stream-1.0-SNAPSHOT.jar -javaagent:sizeofag.jar moa.gui.GUI&'
+#Work related stuff
+alias check_jobboards='mysql joci2 < ~/Projects_resources/JOCI/check-jobboard.sql'
+alias joci2='mysql -uroot -ppetkan -h127.0.0.1 -P3306 joci2'
+alias reco='mysql -uroot -ppetkan -h127.0.0.1 -P3306 reco'
+alias ml='mysql -uroot -ppetkan -h127.0.0.1 -P3306 ml'

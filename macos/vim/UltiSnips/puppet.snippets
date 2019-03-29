@@ -1,0 +1,26 @@
+snippet source "Description" !b
+source => 'puppet:///modules/${1:module}/${2:file}'
+endsnippet
+
+snippet p "Parameter documentation"
+# +*${1:name}*+
+# ${2:description}
+endsnippet
+
+snippet reqnodef "Sentence for parameter is required and there is no default"
+This parameter is required and there is no default value.
+endsnippet
+
+snippet docheader "Documentation header for puppet internally" !b
+#
+# h3. ${1:entityname}
+# Description
+#
+# h5. Basic usage
+# You can simply include the class with
+# {code}
+# include ::${1:entityname}
+# {code}
+#
+# h5. Parameters
+endsnippet
