@@ -132,6 +132,9 @@ set showmatch                                   " highlight matching parens
 
 set spell                                       " do spell checking for English
 silent set spelllang+=en                        " set English language silently
+hi clear SpellBad
+hi SpellBad cterm=underline
+hi Error NONE
 
 "colorscheme inkpot                              " set colorscheme
 
@@ -238,9 +241,11 @@ let g:tagbar_autofocus = 1
 
 "Close NERDTree if open after we open a new file
 let g:NERDTreeQuitOnOpen=1
+
 "Doxygen
 let g:load_doxygen_syntax=1
 let g:doxygen_enhanced_color=1
+
 "Latex options
 let g:Tex_DefaultTargetFormat="pdf"
 let g:Tex_ViewRule_pdf="kpdf"
@@ -357,5 +362,7 @@ map <Up> <NOP>
 map <Down> <NOP>
 map <Left> <NOP>
 map <Right> <NOP>
+
+map <C-n> :NERDTreeToggle<CR>
 
 nmap ; :
