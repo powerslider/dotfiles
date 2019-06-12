@@ -23,3 +23,7 @@ export PATH=$M2:$PATH
 export MAVEN_OPTS="-XX:PermSize=512m -XX:MaxPermSize=512m -XX:MaxHeapSize=1024m"
 export PATH="$HOME/bin:$PATH"
 export PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
+
+#JEnv Config
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
