@@ -5,15 +5,16 @@
 export PAGER=less
 export GIT_EDITOR=vim
 export GIT_PAGER=less
-export PYTHONSTARTUP=~/.pystartup
-export M2_HOME=/usr/local/apache-maven
-export M2=$M2_HOME/bin
+export PYTHONSTARTUP="~/.pystartup"
+export M2_HOME="/usr/local/apache-maven"
+export M2="$M2_HOME/bin"
+export FLUTTER_HOME="/usr/local/share/flutter"
+export RUBY_HOME="/usr/local/opt/ruby"
+export LDFLAGS="-L $RUBY_HOME/lib"
+export CPPFLAGS="-I $RUBY_HOME/include"
 
 export GOPATH="$HOME/go"
 export GOROOT="$(brew --prefix golang)/libexec"
-
-export KUBECTL_LOGIN_VERSION=$(curl -sS -D - https://github.com/Financial-Times/kubectl-login/releases/latest -o /dev/null | grep Location | sed -E "s/^.*tag\/([0-9.]+).*$/\1/g")
-export KUBECONFIG="$HOME/go/src/github.com/Financial-Times/content-k8s-auth-setup/kubeconfig"
 
 #Prefer vim for everything. Some strange distros like ubuntu have bad defaults like ed -.-
 export EDITOR=vim
@@ -23,6 +24,8 @@ export PATH=$M2:$PATH
 export MAVEN_OPTS="-XX:PermSize=512m -XX:MaxPermSize=512m -XX:MaxHeapSize=1024m"
 export PATH="$HOME/bin:$PATH"
 export PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
+export PATH="$PATH:$FLUTTER_HOME/bin"
+export PATH="$PATH:$RUBY_HOME/bin"
 
 #JEnv Config
 export PATH="$HOME/.jenv/bin:$PATH"

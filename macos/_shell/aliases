@@ -1,6 +1,5 @@
 alias rm='rm -i'
 alias mv='mv -i'
-alias cat='bat'
 
 alias vim="stty stop '' -ixoff ; vim"
 #'Freezing' tty, so after any command terminal settings will be restored
