@@ -1,6 +1,6 @@
 [user]
 	name = Tsvetan Dimitrov
-	email = tsvetan.dimitrov@theopentag.com
+	email = tsvetan.dimitrov23@gmail.com
 [color]
 	diff = auto
 	status = auto
@@ -13,5 +13,8 @@
 	#default = simple
 [alias]
     st = status
+    co = checkout
 [credential]
 	helper = cache --timeout=3600
+[commit]
+	gpgsign = true

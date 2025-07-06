@@ -9,7 +9,5 @@ alias cl='source /usr/local/bin/cluster-login.sh'
 
 alias k='kubectl'
 
-
-
 alias readlink=greadlink
-
+alias tar=gtar
