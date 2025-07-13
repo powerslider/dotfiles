@@ -1,0 +1,48 @@
+{
+    "window.commandCenter": true,
+    // === Editor Behavior ===
+    "editor.fontSize": 16,
+    "editor.fontFamily": "'Fira Code', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "always",
+        "source.fixAll": "always"
+    },
+    "editor.inlayHints.enabled": "on",
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    // === Go Settings ===
+    "go.useLanguageServer": true,
+    "go.formatTool": "goimports",
+    "go.lintTool": "golangci-lint",
+    "go.lintOnSave": "package",
+    "go.vetOnSave": "package",
+    "go.testFlags": [
+        "-v"
+    ],
+    "go.toolsManagement.autoUpdate": true,
+    "gopls": {
+        "ui.completion.usePlaceholders": true,
+        "ui.semanticTokens": true,
+        "ui.diagnostic.analyses": {
+            "unusedparams": true,
+            "shadow": true,
+            "unusedwrite": true,
+            "unusedvariable": true
+        },
+        "staticcheck": true,
+        "matcher": "Fuzzy",
+        "experimentalPostfixCompletions": true
+    },
+    // === Terminal & Shell ===
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    // === Misc ===
+    "files.eol": "\n",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "symbols.hidesExplorerArrows": false,
+    "workbench.iconTheme": "catppuccin-frappe",
+    "workbench.colorTheme": "Gruvbox Material Dark"
+}
