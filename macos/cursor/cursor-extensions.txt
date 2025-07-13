@@ -1,0 +1,9 @@
+aos.gostmortem-table
+catppuccin.catppuccin-vsc-icons
+eamodio.gitlens
+golang.go
+k4ustu3h.theme-jamt
+patriciodiaz.go-struct-analyzer
+sainnhe.gruvbox-material
+shivamkumar.go-extras
+udon.grub-theme-syntax-highlighter
