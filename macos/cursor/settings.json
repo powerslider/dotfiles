@@ -12,6 +12,10 @@
     "editor.inlayHints.enabled": "on",
     "editor.tabSize": 4,
     "editor.detectIndentation": false,
+    // Make inline diagnostics cleaner
+    "editor.inlineSuggest.enabled": true,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
     // === Go Settings ===
     "go.useLanguageServer": true,
     "go.formatTool": "goimports",
@@ -35,6 +39,18 @@
         "matcher": "Fuzzy",
         "experimentalPostfixCompletions": true
     },
+    // Auto lint + fix with clippy
+    "rust-analyzer.check.command": "clippy",
+    // Optional: show inlay type hints
+    "rust-analyzer.inlayHints.enable": true,
+    "rust-analyzer.cargo.features": [
+        "default"
+    ],
+    "rust-analyzer.procMacro.enable": true,
+    "rust-analyzer.files.excludeDirs": [
+        ".direnv",
+        "target"
+    ],
     // === Terminal & Shell ===
     "terminal.integrated.defaultProfile.linux": "zsh",
     "terminal.integrated.defaultProfile.osx": "zsh",

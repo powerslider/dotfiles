@@ -3,7 +3,9 @@ catppuccin.catppuccin-vsc-icons
 eamodio.gitlens
 golang.go
 k4ustu3h.theme-jamt
+mechatroner.rainbow-csv
 patriciodiaz.go-struct-analyzer
+rust-lang.rust-analyzer
 sainnhe.gruvbox-material
 shivamkumar.go-extras
 udon.grub-theme-syntax-highlighter
