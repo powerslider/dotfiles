@@ -59,6 +59,7 @@ source /etc/profile
 source $ZSH/oh-my-zsh.sh
 source ~/.shell/aliases
 source ~/.shell/env
+source ~/.shell/path
 source ~/.shell/functions
 
 export REPORTTIME=10
@@ -76,4 +77,10 @@ bindkey -M viins '^r' history-incremental-search-backward
 
 # More on this option here http://www.johnhawthorn.com/2012/09/vi-escape-delays/
 KEYTIMEOUT=1
+
+export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+
+
+# Added by Antigravity
+export PATH="/Users/tsvetandimitrov/.antigravity/antigravity/bin:$PATH"
 

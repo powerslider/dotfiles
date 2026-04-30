@@ -32,4 +32,5 @@ export PATH="$PATH:$FLUTTER_HOME/bin"
 export PATH="$PATH:$RUBY_HOME/bin"
 export PATH="$PATH:$FOUNDRY_HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
-
+export PATH="$PATH:/opt/homebrew/opt/grep/libexec/gnubin"
+export PATH="$PATH:$HOME/.opencode/bin"
