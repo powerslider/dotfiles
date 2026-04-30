@@ -20,6 +20,9 @@ __pycache__/
 **/*.backup
 **/*~
 **/*.swp
+**/*.swo
+**/.*.swp
+**/.*.swo
 
 # Binary blobs that should be installed via package manager instead
 macos/bin/yt-dlp
