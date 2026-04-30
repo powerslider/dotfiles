@@ -1,0 +1,28 @@
+{{- /*
+Interactive configuration on first `chezmoi init`.
+
+Prompts are answered ONCE and persisted to ~/.config/chezmoi/chezmoi.toml,
+which is NOT in this repo. This keeps personal/work identifiers out of
+the public source tree — chezmoi reads them locally and substitutes them
+into templated files at apply time.
+
+If you want non-interactive setup (e.g. on a fresh CI runner), pre-write
+~/.config/chezmoi/chezmoi.toml with the [data] block before running
+`chezmoi init`.
+*/ -}}
+{{- $fullName       := promptStringOnce . "full_name"       "Full name (for git author)" -}}
+{{- $personalEmail  := promptStringOnce . "personal_email"  "Personal git email" -}}
+{{- $workEmail      := promptStringOnce . "work_email"      "Work git email (or leave blank)" -}}
+{{- $signingKey     := promptStringOnce . "signing_key"     "GPG signing key fingerprint (or leave blank to disable signing)" -}}
+
+[data]
+    full_name      = {{ $fullName       | quote }}
+    personal_email = {{ $personalEmail  | quote }}
+    work_email     = {{ $workEmail      | quote }}
+    signing_key    = {{ $signingKey     | quote }}
+
+[diff]
+    pager = "delta"
+
+[edit]
+    command = "nvim"

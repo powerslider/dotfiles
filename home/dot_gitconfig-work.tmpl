@@ -1,0 +1,7 @@
+{{- /*
+Sourced by ~/.gitconfig via [includeIf "gitdir:~/work/"]. Overrides
+the personal identity for repos under ~/work/ or ~/git-repos/work/.
+*/ -}}
+[user]
+    name = {{ .full_name }}
+    email = {{ .work_email }}

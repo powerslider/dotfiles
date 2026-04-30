@@ -1,0 +1,47 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.netrwhist
+*.un~
+Session.vim
+.vimsession
+
+# direnv
+.envrc.local
+
+# mise
+.mise.local.toml
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.python-version
+
+# Rust
+target/
+
+# Go
+vendor/
+
+# Logs / temp
+*.log
+.log/
+tmp/
+*.bak
