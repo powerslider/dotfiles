@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python
+*.pyc
+*.pyo
+__pycache__/
+
+# IDE
+.idea/
+.vscode/
+
+# Local-only shell overrides
+**/_shell/env.local
+**/.shell/env.local
+
+# Backups
+**/*.backup
+**/*~
+**/*.swp
+
+# Binary blobs that should be installed via package manager instead
+macos/bin/yt-dlp
+
+# Vim transient
+**/vim/.netrwhist
+**/vim/spell
+**/vim/view
+**/vim/bundle/
+
+# chezmoi (when adopted)
+.chezmoiscripts/.cache/
