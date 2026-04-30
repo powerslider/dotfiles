@@ -1,4 +1,0 @@
-#!/bin/bash
-
-
-apt-key adv --recv-keys --keyserver keyserver.ubuntu.com $1
