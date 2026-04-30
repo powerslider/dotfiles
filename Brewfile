@@ -107,26 +107,8 @@ cask "font-fira-code-nerd-font"        # primary coding font (Nerd Font for icon
 cask "font-jetbrains-mono-nerd-font"   # alt coding font
 
 # ---------------------------------------------------------------------
-# VS Code / Cursor extensions
-# (Cursor is a VS Code fork; the `code` CLI installs into Cursor as
-# well when Cursor is the active editor. For Cursor-only management
-# see macos/cursor-extensions.sh.)
+# Cursor / VS Code extensions
+# Managed separately from Homebrew via macos/install-cursor.sh, which
+# uses the cursor CLI directly. The list of extensions lives in
+# macos/cursor/cursor-extensions.txt.
 # ---------------------------------------------------------------------
-vscode "anthropic.claude-code"
-vscode "aos.gostmortem-table"
-vscode "augment.vscode-augment"
-vscode "catppuccin.catppuccin-vsc-icons"
-vscode "eamodio.gitlens"
-vscode "esbenp.prettier-vscode"
-vscode "github.vscode-github-actions"
-vscode "golang.go"
-vscode "hashicorp.terraform"
-vscode "k4ustu3h.theme-jamt"
-vscode "mechatroner.rainbow-csv"
-vscode "ms-vscode.makefile-tools"
-vscode "patriciodiaz.go-struct-analyzer"
-vscode "rust-lang.rust-analyzer"
-vscode "sainnhe.gruvbox-material"
-vscode "shivamkumar.go-extras"
-vscode "sst-dev.opencode"
-vscode "udon.grub-theme-syntax-highlighter"
