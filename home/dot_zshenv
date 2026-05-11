@@ -1,0 +1,7 @@
+# vim: set ft=zsh :
+#
+# Runs for every zsh invocation — login, interactive, and scripts.
+# Keep it fast and side-effect-free: env vars + PATH only.
+
+[[ -f "$HOME/.shell/env" ]]  && source "$HOME/.shell/env"
+[[ -f "$HOME/.shell/path" ]] && source "$HOME/.shell/path"

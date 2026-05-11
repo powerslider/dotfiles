@@ -1,0 +1,19 @@
+# Global mise config.
+#
+# Replaces nvm + jenv (and asdf if you ever used it). Pin per-project
+# versions in `.tool-versions` or `.mise.toml` inside the project; this
+# file is for global defaults.
+#
+# After editing: `mise install` to materialise.
+
+[settings]
+experimental = true
+# Auto-install on `cd` into a project with .tool-versions / .mise.toml
+auto_install = true
+
+# Uncomment to set global defaults:
+# [tools]
+# node   = "lts"
+# python = "3.12"
+# go     = "latest"
+# java   = "temurin-21"

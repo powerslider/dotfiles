@@ -1,0 +1,31 @@
+# Starship — fast, declarative prompt.
+#
+# Replaces the old oh-my-zsh `gentoo` theme + hand-rolled
+# zsh-kubectl-prompt RPROMPT. Kubernetes context is now part of starship,
+# always shown (mirrors the old RPROMPT behaviour).
+
+add_newline = true
+
+[character]
+success_symbol = "[›](bold green)"
+error_symbol   = "[›](bold red)"
+
+[directory]
+truncation_length = 3
+truncate_to_repo  = true
+truncation_symbol = "…/"
+
+[git_branch]
+format = "[$symbol$branch]($style) "
+style  = "bold purple"
+
+[git_status]
+format = "([\\[$all_status$ahead_behind\\]]($style) )"
+
+[cmd_duration]
+min_time = 2_000
+format   = "took [$duration]($style) "
+
+[kubernetes]
+disabled = false
+format   = '[\($context\($namespace\)\)](dimmed blue) '

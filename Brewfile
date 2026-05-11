@@ -19,6 +19,7 @@ tap "withgraphite/tap"
 # ---------------------------------------------------------------------
 brew "chezmoi"             # dotfile manager (this repo)
 brew "mise"                # one runtime manager (replaces nvm + jenv + asdf)
+brew "sheldon"             # declarative zsh plugin manager (replaces antigen)
 brew "mas"                 # Mac App Store CLI (for any future MAS apps)
 
 # ---------------------------------------------------------------------

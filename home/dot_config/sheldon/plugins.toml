@@ -1,0 +1,15 @@
+# sheldon — declarative zsh plugin manifest.
+#
+# Order matters: fzf-tab loads after compinit (zshrc handles that),
+# zsh-syntax-highlighting must be last.
+
+shell = "zsh"
+
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"

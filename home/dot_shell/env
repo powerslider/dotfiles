@@ -1,36 +1,14 @@
-#export TERM=xterm-256color
+# vim: set ft=sh :
+#
+# Environment variables only. PATH manipulation lives in ~/.shell/path.
+# Per-project overrides go in .envrc (direnv) or .mise.toml.
 
-#eval `dircolors ~/.dircolors`
-
-export PAGER=less
+export EDITOR=vim
 export GIT_EDITOR=vim
+export PAGER=less
 export GIT_PAGER=less
-export PYTHONSTARTUP="~/.pystartup"
-export M2_HOME="/usr/local/apache-maven"
-export M2="$M2_HOME/bin"
-export FLUTTER_HOME="/usr/local/share/flutter"
-export RUBY_HOME="/usr/local/opt/ruby"
-export LDFLAGS="-L $RUBY_HOME/lib"
-export CPPFLAGS="-I $RUBY_HOME/include"
-
-export FOUNDRY_HOME="$HOME/.foundry"
 
 export GOPATH="$HOME/go"
 
-#Prefer vim for everything. Some strange distros like ubuntu have bad defaults like ed -.-
-export EDITOR=vim
-
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export GPG_TTY=$(tty)
-
-export PATH=$M2_HOME:$PATH
-export PATH=$M2:$PATH
-export MAVEN_OPTS="-XX:PermSize=512m -XX:MaxPermSize=512m -XX:MaxHeapSize=1024m"
-export PATH="$HOME/bin:$PATH"
-export PATH="$PATH:$GOPATH/bin"
-export PATH="$PATH:$FLUTTER_HOME/bin"
-export PATH="$PATH:$RUBY_HOME/bin"
-export PATH="$PATH:$FOUNDRY_HOME/bin"
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:/opt/homebrew/opt/grep/libexec/gnubin"
-export PATH="$PATH:$HOME/.opencode/bin"

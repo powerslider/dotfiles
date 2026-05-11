@@ -1,32 +1,37 @@
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
+# vim: set ft=sh :
+#
+# PATH setup. Sourced from ~/.zshenv for every shell.
+#
+# Runtime managers (Node, Python, Java, Go versions, etc.) are handled
+# by mise, activated from ~/.zshrc. This file only sets up base PATH
+# entries that should exist for non-interactive shells as well.
 
+# Homebrew prefix + completions
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Rust Config
-if [ -f "$HOME/.cargo/env" ]; then 
-    . "$HOME/.cargo/env"
-fi
+# User-scoped bins (prepend so they win over system)
+[[ -d "$HOME/bin" ]]        && PATH="$HOME/bin:$PATH"
+[[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# Go install target
+[[ -n "$GOPATH" && -d "$GOPATH/bin" ]] && PATH="$PATH:$GOPATH/bin"
 
-#JEnv Config
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+# Cargo (Rust toolchain has its own envar+source pattern)
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"; fi
-
+# pnpm — prepend only if not already there
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+    *":$PNPM_HOME:"*) ;;
+    *) [[ -d "$PNPM_HOME" ]] && PATH="$PNPM_HOME:$PATH" ;;
 esac
 
+# opencode CLI
+[[ -d "$HOME/.opencode/bin" ]] && PATH="$PATH:$HOME/.opencode/bin"
+
+# Prefer GNU grep over BSD grep
+if [[ -d "${HOMEBREW_PREFIX:-/opt/homebrew}/opt/grep/libexec/gnubin" ]]; then
+    PATH="${HOMEBREW_PREFIX:-/opt/homebrew}/opt/grep/libexec/gnubin:$PATH"
+fi
+
+export PATH

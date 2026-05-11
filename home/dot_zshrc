@@ -1,86 +1,90 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+# vim: set ft=zsh sw=4 sts=4 et :
+#
+# Interactive zsh setup. Targets <250ms cold start on Apple Silicon.
+#
+# Env and PATH are set in ~/.zshenv (runs for every shell). This file is
+# for interactive concerns only: history, completion, plugins, prompt,
+# tool integrations, aliases, keybindings.
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="gentoo"
+# ---------------------------------------------------------------------
+# History
+# ---------------------------------------------------------------------
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=100000
+SAVEHIST=100000
+setopt INC_APPEND_HISTORY SHARE_HISTORY HIST_IGNORE_DUPS \
+       HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# ---------------------------------------------------------------------
+# Completion — initialise once with a 24h-cached dump
+# ---------------------------------------------------------------------
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+    compinit
+else
+    compinit -C
+fi
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+# ---------------------------------------------------------------------
+# Plugins via sheldon (declarative; see ~/.config/sheldon/plugins.toml)
+# ---------------------------------------------------------------------
+command -v sheldon >/dev/null && eval "$(sheldon source)"
 
-# Comment this out to disable weekly auto-update checks
-DISABLE_AUTO_UPDATE="true"
+# ---------------------------------------------------------------------
+# Prompt + nav + history + env integrations
+# ---------------------------------------------------------------------
+command -v starship >/dev/null && eval "$(starship init zsh)"
+command -v zoxide   >/dev/null && eval "$(zoxide init zsh)"
+command -v atuin    >/dev/null && eval "$(atuin init zsh)"
+command -v direnv   >/dev/null && eval "$(direnv hook zsh)"
+command -v mise     >/dev/null && eval "$(mise activate zsh)"
 
-# Uncomment following line if you want to disable colors in ls # DISABLE_LS_COLORS="true" # Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# fzf keybindings + completion (ships with the Homebrew formula)
+if [[ -d "${HOMEBREW_PREFIX:-/opt/homebrew}/opt/fzf/shell" ]]; then
+    source "${HOMEBREW_PREFIX:-/opt/homebrew}/opt/fzf/shell/key-bindings.zsh"
+    source "${HOMEBREW_PREFIX:-/opt/homebrew}/opt/fzf/shell/completion.zsh"
+fi
 
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
+# ---------------------------------------------------------------------
+# Aliases, functions, per-machine overrides
+# ---------------------------------------------------------------------
+[[ -f "$HOME/.shell/aliases" ]]   && source "$HOME/.shell/aliases"
+[[ -f "$HOME/.shell/functions" ]] && source "$HOME/.shell/functions"
+[[ -f "$HOME/.shell/env.local" ]] && source "$HOME/.shell/env.local"
 
-source $HOME/antigen/antigen.zsh
-
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-#plugins=(
-#    git 
-#    autojump 
-#    ssh-agent 
-#    extract 
-#    vi-mode
-#)
-
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle git
-antigen bundle autojump
-antigen bundle ssh-agent
-antigen bundle extract
-antigen bundle vi-mode
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-
-antigen bundle superbrothers/zsh-kubectl-prompt
-
-antigen apply
-
-autoload -U colors; colors
-RPROMPT='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
-
-source /etc/profile
-source $ZSH/oh-my-zsh.sh
-source ~/.shell/aliases
-source ~/.shell/env
-source ~/.shell/path
-source ~/.shell/functions
-
-export REPORTTIME=10
-
-#Enable editing of command line
+# ---------------------------------------------------------------------
+# Vi mode + emacs keybindings we actually use
+# ---------------------------------------------------------------------
+bindkey -v
+KEYTIMEOUT=1
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd '^e' edit-command-line
-
-#Some emacs keybinding that I sometimes miss
 bindkey -M viins '^e' end-of-line
 bindkey -M viins '^a' beginning-of-line
-bindkey -M viins '^-x^-e' edit-command-line
 bindkey -M viins '^r' history-incremental-search-backward
 
-# More on this option here http://www.johnhawthorn.com/2012/09/vi-escape-delays/
-KEYTIMEOUT=1
+# ---------------------------------------------------------------------
+# Lazy-load gcloud — sourcing path.zsh.inc + completion.zsh.inc eagerly
+# costs >100ms. Define stubs that self-replace on first use.
+# ---------------------------------------------------------------------
+typeset -g _GCLOUD_SDK_ROOT=""
+for _gc in "$HOME/Downloads/google-cloud-sdk" \
+           "${HOMEBREW_PREFIX:-/opt/homebrew}/share/google-cloud-sdk"; do
+    if [[ -f "$_gc/path.zsh.inc" ]]; then _GCLOUD_SDK_ROOT="$_gc"; break; fi
+done
+unset _gc
+if [[ -n "$_GCLOUD_SDK_ROOT" ]]; then
+    _gcloud_lazy_init() {
+        unfunction gcloud gsutil bq 2>/dev/null
+        source "$_GCLOUD_SDK_ROOT/path.zsh.inc"
+        source "$_GCLOUD_SDK_ROOT/completion.zsh.inc"
+    }
+    gcloud() { _gcloud_lazy_init; gcloud "$@"; }
+    gsutil() { _gcloud_lazy_init; gsutil "$@"; }
+    bq()     { _gcloud_lazy_init; bq "$@";     }
+fi
 
-export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
-
-
-# Added by Antigravity
-export PATH="/Users/tsvetandimitrov/.antigravity/antigravity/bin:$PATH"
-
+export REPORTTIME=10

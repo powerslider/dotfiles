@@ -1,13 +1,18 @@
+# vim: set ft=sh :
+
 alias rm='rm -i'
 alias mv='mv -i'
 
+# Wrap vim to re-enable ^S/^Q flow control suppression each call
 alias vim="stty stop '' -ixoff ; vim"
-#'Freezing' tty, so after any command terminal settings will be restored
 ttyctl -f
-
-alias cl='source /usr/local/bin/cluster-login.sh'
 
 alias k='kubectl'
 
+# Prefer GNU variants when the BSD defaults differ in flags
 alias readlink=greadlink
 alias tar=gtar
+
+# Modern CLI replacements (only when installed; fall back silently)
+command -v eza >/dev/null && { alias ll='eza -lah --git'; alias la='eza -lah --git'; alias lt='eza --tree --git-ignore'; }
+command -v bat >/dev/null && alias batp='bat --paging=always'
