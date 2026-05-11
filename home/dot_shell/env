@@ -3,8 +3,8 @@
 # Environment variables only. PATH manipulation lives in ~/.shell/path.
 # Per-project overrides go in .envrc (direnv) or .mise.toml.
 
-export EDITOR=vim
-export GIT_EDITOR=vim
+export EDITOR=nvim
+export GIT_EDITOR=nvim
 export PAGER=less
 export GIT_PAGER=less
 

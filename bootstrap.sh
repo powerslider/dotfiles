@@ -122,5 +122,5 @@ echo
 echo "Next steps:"
 echo "  • Open a new shell so PATH/env changes take effect"
 echo "  • mise install                    # install runtimes from ~/.config/mise/config.toml"
-echo "  • macos/cursor-extensions.sh --restore   # install Cursor extensions"
+echo "  • macos/install-cursor.sh                # Cursor settings + extensions"
 echo "  • macos/install-keyboard-layouts.sh      # install Bulgarian Dvorak layout"

@@ -13,6 +13,6 @@ alias k='kubectl'
 alias readlink=greadlink
 alias tar=gtar
 
-# Modern CLI replacements (only when installed; fall back silently)
+# Modern CLI replacements (only when installed, fall back silently)
 command -v eza >/dev/null && { alias ll='eza -lah --git'; alias la='eza -lah --git'; alias lt='eza --tree --git-ignore'; }
 command -v bat >/dev/null && alias batp='bat --paging=always'
