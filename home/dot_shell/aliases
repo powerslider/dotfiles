@@ -10,6 +10,10 @@ ttyctl -f
 
 alias k='kubectl'
 
+# zoxide remapped to `j` (and ji/ja/jr/…) — but reclaim `jq` for the
+# JSON tool, since zoxide also defines a `jq` query subcommand.
+alias jq='command jq'
+
 # Prefer GNU variants when the BSD defaults differ in flags
 alias readlink=greadlink
 alias tar=gtar

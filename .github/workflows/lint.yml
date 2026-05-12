@@ -39,11 +39,31 @@ jobs:
           shfmt -d -i 4 -ci -bn -sr "${files[@]}"
 
   brew-bundle:
-    name: brew bundle check
+    name: brew bundle validate
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: brew bundle check
-        # --no-upgrade: don't try to bump anything; just verify the
-        # Brewfile parses and every entry exists in Homebrew.
-        run: brew bundle check --file=Brewfile --no-upgrade --verbose
+      - name: Brewfile entries resolve
+        # `brew bundle check` measures install state, useless on a fresh
+        # runner. Instead: tap third-party taps and call `brew info` on
+        # every brew/cask to confirm each entry is a real, resolvable
+        # formula / cask (catches typos, removals, deprecations).
+        run: |
+          set -euo pipefail
+          awk -F'"' '/^tap "/ {print $2}' Brewfile | while read -r t; do
+              echo "→ tap $t"
+              brew tap "$t"
+          done
+          awk -F'"' '/^brew "/ {print $2}' Brewfile | while read -r f; do
+              if ! brew info "$f" > /dev/null 2>&1; then
+                  echo "❌ Unknown formula: $f"
+                  exit 1
+              fi
+          done
+          awk -F'"' '/^cask "/ {print $2}' Brewfile | while read -r c; do
+              if ! brew info --cask "$c" > /dev/null 2>&1; then
+                  echo "❌ Unknown cask: $c"
+                  exit 1
+              fi
+          done
+          echo "✓ All Brewfile entries resolve."
