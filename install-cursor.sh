@@ -16,10 +16,13 @@ CURSOR_USER_DIR="$HOME/Library/Application Support/Cursor/User"
 EXT_LIST="$CURSOR_DIR/cursor-extensions.txt"
 
 log() { printf '\033[1;34m▸\033[0m %s\n' "$*"; }
-err() { printf '\033[1;31m✗\033[0m %s\n' "$*" >&2; exit 1; }
+err() {
+    printf '\033[1;31m✗\033[0m %s\n' "$*" >&2
+    exit 1
+}
 
 cmd="cursor"
-if ! command -v "$cmd" >/dev/null 2>&1; then
+if ! command -v "$cmd" > /dev/null 2>&1; then
     # Cursor's CLI lives at this path on macOS by default
     cmd="/Applications/Cursor.app/Contents/Resources/app/bin/cursor"
     if [[ ! -x "$cmd" ]]; then
@@ -30,7 +33,7 @@ fi
 apply_settings() {
     log "Copying settings.json + keybindings.json into $CURSOR_USER_DIR"
     mkdir -p "$CURSOR_USER_DIR"
-    cp "$CURSOR_DIR/settings.json"    "$CURSOR_USER_DIR/settings.json"
+    cp "$CURSOR_DIR/settings.json" "$CURSOR_USER_DIR/settings.json"
     cp "$CURSOR_DIR/keybindings.json" "$CURSOR_USER_DIR/keybindings.json"
 }
 
@@ -40,7 +43,7 @@ install_extensions() {
     while IFS= read -r ext; do
         [[ -z "$ext" || "$ext" =~ ^# ]] && continue
         echo "  • $ext"
-        "$cmd" --install-extension "$ext" --force >/dev/null
+        "$cmd" --install-extension "$ext" --force > /dev/null
     done < "$EXT_LIST"
 }
 
@@ -51,10 +54,13 @@ backup_extensions() {
 }
 
 case "${1:-all}" in
-    all)               apply_settings; install_extensions ;;
-    --settings-only)   apply_settings ;;
-    --extensions)      install_extensions ;;
-    --backup)          backup_extensions ;;
-    -h|--help)         sed -n '2,10p' "$0" ;;
-    *)                 err "Unknown flag: $1" ;;
+    all)
+        apply_settings
+        install_extensions
+        ;;
+    --settings-only) apply_settings ;;
+    --extensions) install_extensions ;;
+    --backup) backup_extensions ;;
+    -h | --help) sed -n '2,10p' "$0" ;;
+    *) err "Unknown flag: $1" ;;
 esac

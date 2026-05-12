@@ -20,11 +20,15 @@ fi
 log() { printf '\033[1;34m▸\033[0m %s\n' "$*"; }
 
 # Close System Preferences first, otherwise it can override changes
-osascript -e 'tell application "System Preferences" to quit' 2>/dev/null || true
+osascript -e 'tell application "System Preferences" to quit' 2> /dev/null || true
 
 # Ask for sudo upfront and keep alive for the duration
 sudo -v
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do
+    sudo -n true
+    sleep 60
+    kill -0 "$$" || exit
+done 2> /dev/null &
 
 # ---------------------------------------------------------------------
 # General UI/UX
@@ -160,7 +164,7 @@ defaults write com.apple.screencapture disable-shadow -bool true
 log "Safari (requires Full Disk Access for the terminal app)"
 
 safari_defaults() {
-    if ! defaults write "$@" 2>/dev/null; then
+    if ! defaults write "$@" 2> /dev/null; then
         echo "  (skipped — grant Full Disk Access to your terminal to enable Safari prefs)"
         return 0
     fi
@@ -179,11 +183,11 @@ safari_defaults com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.We
 # ---------------------------------------------------------------------
 # Default apps (file type → handler) via duti
 # ---------------------------------------------------------------------
-if command -v duti >/dev/null 2>&1; then
+if command -v duti > /dev/null 2>&1; then
     log "Default app handlers"
-    duti -s com.mitchellh.ghostty public.shell-script         all 2>/dev/null || true
-    duti -s com.mitchellh.ghostty public.unix-executable      all 2>/dev/null || true
-    duti -s com.mitchellh.ghostty com.apple.terminal.shell-script all 2>/dev/null || true
+    duti -s com.mitchellh.ghostty public.shell-script all 2> /dev/null || true
+    duti -s com.mitchellh.ghostty public.unix-executable all 2> /dev/null || true
+    duti -s com.mitchellh.ghostty com.apple.terminal.shell-script all 2> /dev/null || true
 else
     echo "  (duti not installed — skip default-app registration; brew install duti)"
 fi
@@ -193,7 +197,7 @@ fi
 # ---------------------------------------------------------------------
 log "Restarting affected services…"
 for app in Finder Dock SystemUIServer cfprefsd; do
-    killall "$app" >/dev/null 2>&1 || true
+    killall "$app" > /dev/null 2>&1 || true
 done
 
 log "Done. Some changes (e.g. keyboard repeat) require a logout to fully apply."

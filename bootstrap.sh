@@ -22,10 +22,16 @@ APPLY_DEFAULTS=1
 
 for arg in "$@"; do
     case "$arg" in
-        --dry-run)      DRY_RUN=1 ;;
-        --no-defaults)  APPLY_DEFAULTS=0 ;;
-        -h|--help)      sed -n '2,15p' "$0"; exit 0 ;;
-        *)              echo "Unknown flag: $arg" >&2; exit 2 ;;
+        --dry-run) DRY_RUN=1 ;;
+        --no-defaults) APPLY_DEFAULTS=0 ;;
+        -h | --help)
+            sed -n '2,15p' "$0"
+            exit 0
+            ;;
+        *)
+            echo "Unknown flag: $arg" >&2
+            exit 2
+            ;;
     esac
 done
 
@@ -35,7 +41,7 @@ warn() { printf '\033[1;33m!\033[0m %s\n' "$*" >&2; }
 # ---------------------------------------------------------------------
 # 1. Homebrew
 # ---------------------------------------------------------------------
-if ! command -v brew >/dev/null 2>&1; then
+if ! command -v brew > /dev/null 2>&1; then
     log "Installing Homebrew…"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -68,7 +74,7 @@ for link in "${LEGACY_LINKS[@]}"; do
     if [[ -L "$link" ]]; then
         target=$(readlink "$link")
         case "$target" in
-            *git-repos/dotfiles/*|*/dotfiles/*)
+            *git-repos/dotfiles/* | */dotfiles/*)
                 if [[ $DRY_RUN -eq 1 ]]; then
                     echo "  [dry-run] would rm $link (-> $target)"
                 else
@@ -82,7 +88,7 @@ done
 # ---------------------------------------------------------------------
 # 4. chezmoi
 # ---------------------------------------------------------------------
-if ! command -v chezmoi >/dev/null 2>&1; then
+if ! command -v chezmoi > /dev/null 2>&1; then
     warn "chezmoi not on PATH after brew bundle — open a new shell and re-run"
     exit 1
 fi
@@ -101,10 +107,10 @@ fi
 # ---------------------------------------------------------------------
 # 5. mise — materialise runtimes from ~/.config/mise/config.toml
 # ---------------------------------------------------------------------
-if command -v mise >/dev/null 2>&1; then
+if command -v mise > /dev/null 2>&1; then
     log "Installing runtimes via mise (go, rust, …)"
     if [[ $DRY_RUN -eq 1 ]]; then
-        mise ls --current 2>/dev/null || true
+        mise ls --current 2> /dev/null || true
     else
         mise install --yes
     fi

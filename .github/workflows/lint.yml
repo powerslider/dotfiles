@@ -1,0 +1,49 @@
+name: lint
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  # Weekly safety net — catches Brewfile drift even with no commits.
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  shellcheck:
+    name: shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        env:
+          SHELLCHECK_OPTS: --severity=warning -e SC1091
+        with:
+          ignore_paths: .git .claude
+
+  shfmt:
+    name: shfmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mfinelli/setup-shfmt@v3
+      - name: Check formatting
+        run: |
+          mapfile -t files < <(find . -name '*.sh' \
+              -not -path './.git/*' \
+              -not -path './.claude/*')
+          shfmt -d -i 4 -ci -bn -sr "${files[@]}"
+
+  brew-bundle:
+    name: brew bundle check
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: brew bundle check
+        # --no-upgrade: don't try to bump anything; just verify the
+        # Brewfile parses and every entry exists in Homebrew.
+        run: brew bundle check --file=Brewfile --no-upgrade --verbose
