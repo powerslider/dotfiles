@@ -121,8 +121,10 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 # ---------------------------------------------------------------------
 log "Dock + Mission Control"
 
-# Auto-hide the Dock with no delay
-defaults write com.apple.dock autohide -bool true
+# Keep the Dock visible (no auto-hide). If you later want auto-hide,
+# flip this to `-bool true` and the two timing tweaks below kick in to
+# make it appear instantly when you hit the screen edge.
+defaults write com.apple.dock autohide -bool false
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.2
 
@@ -148,18 +150,31 @@ defaults write com.apple.screencapture disable-shadow -bool true
 
 # ---------------------------------------------------------------------
 # Safari (debug + privacy)
+#
+# Safari prefs live inside ~/Library/Containers/com.apple.Safari/ and
+# require the executing process (Terminal / iTerm / Ghostty) to hold
+# "Full Disk Access" to be writable. If you haven't granted that, these
+# writes will print a "Could not write domain" warning and be skipped —
+# everything else above still applies.
 # ---------------------------------------------------------------------
-log "Safari"
+log "Safari (requires Full Disk Access for the terminal app)"
+
+safari_defaults() {
+    if ! defaults write "$@" 2>/dev/null; then
+        echo "  (skipped — grant Full Disk Access to your terminal to enable Safari prefs)"
+        return 0
+    fi
+}
 
 # Privacy: don't send search queries to Apple
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+safari_defaults com.apple.Safari UniversalSearchEnabled -bool false
+safari_defaults com.apple.Safari SuppressSearchSuggestions -bool true
 
 # Developer menu + Web Inspector
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
+safari_defaults com.apple.Safari IncludeInternalDebugMenu -bool true
+safari_defaults com.apple.Safari IncludeDevelopMenu -bool true
+safari_defaults com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+safari_defaults com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
 
 # ---------------------------------------------------------------------
 # Apply

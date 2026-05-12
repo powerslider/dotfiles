@@ -42,7 +42,7 @@ brew "yt-dlp"              # replaces the binary blob we deleted
 # ---------------------------------------------------------------------
 brew "neovim"              # for LazyVim
 brew "tmux"                # in case
-brew "lazygit"             # TUI git client; complements gh
+brew "lazygit"             # TUI git client, complements gh
 
 # ---------------------------------------------------------------------
 # Shell utilities
@@ -53,8 +53,6 @@ brew "gnu-tar"             # GNU tar (gtar)
 brew "grep"                # GNU grep (ggrep, also gives gnubin/grep)
 brew "jq"                  # JSON query
 brew "ncdu"                # disk-usage TUI
-brew "pandoc"              # markup conversion
-brew "pdftohtml"           # PDF → HTML
 
 # ---------------------------------------------------------------------
 # Linting / format (used by repo CI)
@@ -77,7 +75,6 @@ brew "pre-commit"          # pre-commit hook framework
 brew "awscli"
 brew "cloud-sql-proxy"
 brew "hashicorp/tap/terraform"
-brew "withgraphite/tap/graphite"   # stacked PRs
 
 # ---------------------------------------------------------------------
 # Languages & build tools
@@ -91,18 +88,18 @@ brew "goreleaser"          # Go release tooling
 brew "graphviz"            # dot
 brew "libpq"               # Postgres client lib
 brew "lz4"                 # compression
-brew "promptfoo"           # LLM eval
 brew "act", args: ["HEAD"] # local GitHub Actions runner
 
 # ---------------------------------------------------------------------
 # Casks
 # ---------------------------------------------------------------------
-cask "cursor"                          # AI IDE
+# Cursor is installed manually from https://cursor.com — the Homebrew
+# cask fights with Cursor's own auto-updater and tripped xattr errors
+# on adoption. Settings + extensions are still managed via
+# macos/install-cursor.sh (see below).
 cask "hammerspoon"                     # macOS automation (configs in dot_hammerspoon)
 cask "raycast"                         # launcher + clipboard history (replaces Hammerspoon jumpcut)
 cask "ghostty"                         # modern terminal
-cask "1password-cli"                   # for SSH agent in Phase 5
-cask "ngrok"                           # tunnels
 cask "t3-code"                         # AI coding GUI
 cask "font-fira-code-nerd-font"        # primary coding font (Nerd Font for icons)
 cask "font-jetbrains-mono-nerd-font"   # alt coding font

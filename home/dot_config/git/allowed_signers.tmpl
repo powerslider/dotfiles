@@ -1,0 +1,15 @@
+{{- /*
+allowed_signers — maps email principals to the SSH public key we trust
+for signature verification (`git log --show-signature` and friends).
+
+Format (per ssh-keygen(1)):
+    <principal> <pubkey-type> <pubkey-data>
+
+Identities come from chezmoi data set in ~/.config/chezmoi/chezmoi.toml.
+*/ -}}
+{{- if .signing_pubkey -}}
+{{ .personal_email }} {{ .signing_pubkey }}
+{{- if .work_email }}
+{{ .work_email }} {{ .signing_pubkey }}
+{{- end }}
+{{- end }}

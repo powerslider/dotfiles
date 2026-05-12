@@ -3,8 +3,9 @@
 alias rm='rm -i'
 alias mv='mv -i'
 
-# Wrap vim to re-enable ^S/^Q flow control suppression each call
-alias vim="stty stop '' -ixoff ; vim"
+# Route `vim` to neovim, and suppress ^S/^Q flow control each call
+alias vim="stty stop '' -ixoff ; nvim"
+alias vi='nvim'
 ttyctl -f
 
 alias k='kubectl'

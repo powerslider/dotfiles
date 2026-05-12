@@ -122,5 +122,6 @@ echo
 echo "Next steps:"
 echo "  • Open a new shell so PATH/env changes take effect"
 echo "  • mise install                    # install runtimes from ~/.config/mise/config.toml"
+echo "  • Install Cursor from https://cursor.com (not in Brewfile — manual)"
 echo "  • macos/install-cursor.sh                # Cursor settings + extensions"
 echo "  • macos/install-keyboard-layouts.sh      # install Bulgarian Dvorak layout"

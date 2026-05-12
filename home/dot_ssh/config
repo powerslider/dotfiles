@@ -1,0 +1,13 @@
+# vim: set ft=sshconfig :
+#
+# macOS-Keychain-aware SSH agent config.
+#
+# Keys added via `ssh-add --apple-use-keychain <key>` get their
+# passphrases stored in macOS Keychain and re-loaded into the agent
+# automatically on login.
+
+Host *
+    AddKeysToAgent yes
+    UseKeychain yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
