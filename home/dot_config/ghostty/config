@@ -1,0 +1,63 @@
+# Ghostty config.
+#
+# Reference: https://ghostty.org/docs/config
+
+# Nerd Font — gives full glyph coverage for starship icons, lsp signs,
+# powerline glyphs, etc. Installed via Brewfile.
+font-family = FiraCode Nerd Font
+font-size   = 14
+
+# Ligatures (=> -> >= etc.). FiraCode is famous for them.
+font-feature = +calt
+font-feature = +liga
+font-feature = +ss01
+font-feature = +ss02
+font-feature = +ss03
+
+# Match the nvim theme — Ghostty ships a Material Oceanic preset, then
+# we soften every palette colour ~35% toward the foreground grey so the
+# brights aren't so eye-stabby. Foreground/background/cursor stay as the
+# stock theme defines them.
+theme = Oceanic Material
+
+palette = 0=#1c2429
+palette = 1=#d85a59
+palette = 2=#67a867
+palette = 3=#e0d172
+palette = 4=#5191da
+palette = 5=#a360b3
+palette = 6=#4eb5c3
+palette = 7=#b8bdc7
+palette = 8=#6e7a85
+palette = 9=#e07277
+palette = 10=#87c388
+palette = 11=#f5e687
+palette = 12=#7eb1ef
+palette = 13=#b76dc5
+palette = 14=#6ec8d4
+palette = 15=#e8eaef
+
+# Comfortable line height + reasonable padding.
+adjust-cell-height = 10%
+window-padding-x   = 8
+window-padding-y   = 6
+window-padding-balance = true
+
+# Native macOS chrome (no custom window decorations).
+macos-titlebar-style = transparent
+
+# Open new windows in the same working directory.
+working-directory = inherit
+
+# Faster scroll, larger history.
+scrollback-limit = 100000
+
+# Sensible cursor.
+cursor-style       = block
+cursor-style-blink = false
+
+# Shell integration auto-detected for zsh; explicit is fine.
+shell-integration = zsh
+
+# True color guaranteed (Starship + nvim depend on this).
+window-colorspace = display-p3

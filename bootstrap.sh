@@ -54,20 +54,13 @@ else
 fi
 
 # ---------------------------------------------------------------------
-# 3. Remove legacy symlinks left behind by macos/install.sh
+# 3. Remove legacy symlinks left behind by the old install.sh
 # ---------------------------------------------------------------------
 LEGACY_LINKS=(
     "$HOME/.zshrc"
     "$HOME/.zprofile"
     "$HOME/.gitconfig"
     "$HOME/.shell"
-    "$HOME/.hammerspoon"
-    "$HOME/.sshagent"
-    "$HOME/.vim"
-    "$HOME/.vimrc"
-    "$HOME/.inputrc"
-    "$HOME/.toprc"
-    "$HOME/bin"
 )
 
 log "Removing legacy symlinks pointing into the dotfiles repo…"
@@ -75,7 +68,7 @@ for link in "${LEGACY_LINKS[@]}"; do
     if [[ -L "$link" ]]; then
         target=$(readlink "$link")
         case "$target" in
-            *git-repos/dotfiles/*|*/dotfiles/macos/*)
+            *git-repos/dotfiles/*|*/dotfiles/*)
                 if [[ $DRY_RUN -eq 1 ]]; then
                     echo "  [dry-run] would rm $link (-> $target)"
                 else
@@ -106,14 +99,28 @@ else
 fi
 
 # ---------------------------------------------------------------------
-# 5. macOS defaults
+# 5. mise — materialise runtimes from ~/.config/mise/config.toml
+# ---------------------------------------------------------------------
+if command -v mise >/dev/null 2>&1; then
+    log "Installing runtimes via mise (go, rust, …)"
+    if [[ $DRY_RUN -eq 1 ]]; then
+        mise ls --current 2>/dev/null || true
+    else
+        mise install --yes
+    fi
+else
+    warn "mise not on PATH — skipping runtime install; open a new shell and run 'mise install'"
+fi
+
+# ---------------------------------------------------------------------
+# 6. macOS defaults
 # ---------------------------------------------------------------------
 if [[ $APPLY_DEFAULTS -eq 1 ]]; then
     log "Applying macOS defaults…"
     if [[ $DRY_RUN -eq 1 ]]; then
-        echo "  [dry-run] would run $REPO_ROOT/macos/defaults.sh"
+        echo "  [dry-run] would run $REPO_ROOT/defaults.sh"
     else
-        "$REPO_ROOT/macos/defaults.sh"
+        "$REPO_ROOT/defaults.sh"
     fi
 fi
 
@@ -121,7 +128,6 @@ log "Done."
 echo
 echo "Next steps:"
 echo "  • Open a new shell so PATH/env changes take effect"
-echo "  • mise install                    # install runtimes from ~/.config/mise/config.toml"
 echo "  • Install Cursor from https://cursor.com (not in Brewfile — manual)"
-echo "  • macos/install-cursor.sh                # Cursor settings + extensions"
-echo "  • macos/install-keyboard-layouts.sh      # install Bulgarian Dvorak layout"
+echo "  • ./install-cursor.sh                    # Cursor settings + extensions"
+echo "  • ./install-keyboard-layouts.sh          # Bulgarian Dvorak layout"

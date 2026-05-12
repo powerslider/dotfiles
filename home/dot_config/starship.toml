@@ -1,31 +1,80 @@
 # Starship — fast, declarative prompt.
 #
 # Replaces the old oh-my-zsh `gentoo` theme + hand-rolled
-# zsh-kubectl-prompt RPROMPT. Kubernetes context is now part of starship,
-# always shown (mirrors the old RPROMPT behaviour).
+# zsh-kubectl-prompt RPROMPT.
 
 add_newline = true
+
+# Battery shown at the far right of the prompt line.
+right_format = "$battery"
 
 [character]
 success_symbol = "[›](bold green)"
 error_symbol   = "[›](bold red)"
 
+[battery]
+format             = "[$symbol $percentage]($style)"
+full_symbol        = "󰁹"
+charging_symbol    = "󰂄"
+discharging_symbol = "󰁾"
+unknown_symbol     = "󰂑"
+empty_symbol       = "󰂃"
+[[battery.display]]
+threshold = 20
+style     = "bold red"
+[[battery.display]]
+threshold = 50
+style     = "bold yellow"
+[[battery.display]]
+threshold = 100
+style     = "green"
+
+# Show the full path, never truncated.
 [directory]
-truncation_length = 3
-truncate_to_repo  = true
-truncation_symbol = "…/"
+truncation_length = 0
+truncate_to_repo  = false
+truncation_symbol = ""
 
 [git_branch]
 format = "[$symbol$branch]($style) "
-style  = "bold purple"
+style  = 'bold #c3e88d'
 
 [git_status]
-format = "([\\[$all_status$ahead_behind\\]]($style) )"
+# Counts coloured by meaning — quick visual scan tells you what's pending.
+style      = "bold"
+format     = '([\[$ahead_behind$all_status\]]($style) )'
+staged     = '[✚${count}](green) '
+deleted    = '[✖${count}](red) '
+renamed    = '[➜${count}](purple) '
+stashed    = '[✭${count}](cyan) '
+untracked  = '[?${count}](white) '
+modified   = '[●${count}](blue) '
+conflicted = '[═${count}](yellow) '
+ahead      = '[⇡${count}](green) '
+behind     = '[⇣${count}](red) '
+diverged   = '[⇕⇡${ahead_count}⇣${behind_count}](yellow) '
 
 [cmd_duration]
 min_time = 2_000
 format   = "took [$duration]($style) "
 
+# Kubernetes context disabled — was noisy and rarely useful in this prompt.
 [kubernetes]
-disabled = false
-format   = '[\($context\($namespace\)\)](dimmed blue) '
+disabled = true
+
+# GCP service-account / project indicator disabled (the ☁ block).
+[gcloud]
+disabled = true
+
+# Language version indicators disabled — version info belongs in mise/asdf,
+# not in every prompt line.
+[golang]
+disabled = true
+[nodejs]
+disabled = true
+[python]
+disabled = true
+[rust]
+disabled = true
+[java]
+disabled = true

@@ -26,9 +26,6 @@ case ":$PATH:" in
     *) [[ -d "$PNPM_HOME" ]] && PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# opencode CLI
-[[ -d "$HOME/.opencode/bin" ]] && PATH="$PATH:$HOME/.opencode/bin"
-
 # Prefer GNU grep over BSD grep
 if [[ -d "${HOMEBREW_PREFIX:-/opt/homebrew}/opt/grep/libexec/gnubin" ]]; then
     PATH="${HOMEBREW_PREFIX:-/opt/homebrew}/opt/grep/libexec/gnubin:$PATH"

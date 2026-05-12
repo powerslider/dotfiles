@@ -8,7 +8,7 @@
 # to take effect; the trailing `killall` block handles that.
 #
 # Run via bootstrap.sh, or standalone:
-#   ./macos/defaults.sh
+#   ./defaults.sh
 
 set -euo pipefail
 
@@ -175,6 +175,18 @@ safari_defaults com.apple.Safari IncludeInternalDebugMenu -bool true
 safari_defaults com.apple.Safari IncludeDevelopMenu -bool true
 safari_defaults com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
 safari_defaults com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
+
+# ---------------------------------------------------------------------
+# Default apps (file type → handler) via duti
+# ---------------------------------------------------------------------
+if command -v duti >/dev/null 2>&1; then
+    log "Default app handlers"
+    duti -s com.mitchellh.ghostty public.shell-script         all 2>/dev/null || true
+    duti -s com.mitchellh.ghostty public.unix-executable      all 2>/dev/null || true
+    duti -s com.mitchellh.ghostty com.apple.terminal.shell-script all 2>/dev/null || true
+else
+    echo "  (duti not installed — skip default-app registration; brew install duti)"
+fi
 
 # ---------------------------------------------------------------------
 # Apply

@@ -10,10 +10,15 @@
 experimental = true
 # Auto-install on `cd` into a project with .tool-versions / .mise.toml
 auto_install = true
+# Skip Node release-team GPG verification — keyring drift breaks fresh
+# installs faster than the keys can be canonically updated. SHA256
+# checksum verification still happens.
+node.gpg_verify = false
 
-# Uncomment to set global defaults:
-# [tools]
-# node   = "lts"
-# python = "3.12"
-# go     = "latest"
-# java   = "temurin-21"
+# Global tool versions. Materialised by `mise install` (run by bootstrap.sh).
+# Override per-project in `.tool-versions` or `.mise.toml` at the repo root.
+[tools]
+go     = "latest"
+rust   = "latest"
+node   = "lts"
+python = "latest"

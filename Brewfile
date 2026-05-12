@@ -12,7 +12,6 @@
 # ---------------------------------------------------------------------
 tap "ethereum/ethereum"
 tap "hashicorp/tap"
-tap "withgraphite/tap"
 
 # ---------------------------------------------------------------------
 # Dotfile + runtime + bootstrap
@@ -20,7 +19,6 @@ tap "withgraphite/tap"
 brew "chezmoi"             # dotfile manager (this repo)
 brew "mise"                # one runtime manager (replaces nvm + jenv + asdf)
 brew "sheldon"             # declarative zsh plugin manager (replaces antigen)
-brew "mas"                 # Mac App Store CLI (for any future MAS apps)
 
 # ---------------------------------------------------------------------
 # Modern CLI replacements / additions
@@ -53,6 +51,7 @@ brew "gnu-tar"             # GNU tar (gtar)
 brew "grep"                # GNU grep (ggrep, also gives gnubin/grep)
 brew "jq"                  # JSON query
 brew "ncdu"                # disk-usage TUI
+brew "duti"                # set default macOS file-type handlers
 
 # ---------------------------------------------------------------------
 # Linting / format (used by repo CI)
@@ -64,6 +63,7 @@ brew "shfmt"
 # Security / git ops
 # ---------------------------------------------------------------------
 brew "gh"                  # GitHub CLI
+brew "kubernetes-cli"      # kubectl — backs the `k=kubectl` alias
 brew "git"                 # current git, not the Xcode-bundled one
 brew "gitleaks"            # secret scanning
 brew "gnupg"               # for commit signing
@@ -87,7 +87,6 @@ brew "ffmpeg"              # media swiss-army-knife
 brew "goreleaser"          # Go release tooling
 brew "graphviz"            # dot
 brew "libpq"               # Postgres client lib
-brew "lz4"                 # compression
 brew "act", args: ["HEAD"] # local GitHub Actions runner
 
 # ---------------------------------------------------------------------
@@ -96,9 +95,8 @@ brew "act", args: ["HEAD"] # local GitHub Actions runner
 # Cursor is installed manually from https://cursor.com — the Homebrew
 # cask fights with Cursor's own auto-updater and tripped xattr errors
 # on adoption. Settings + extensions are still managed via
-# macos/install-cursor.sh (see below).
-cask "hammerspoon"                     # macOS automation (configs in dot_hammerspoon)
-cask "raycast"                         # launcher + clipboard history (replaces Hammerspoon jumpcut)
+# ./install-cursor.sh (see below).
+cask "raycast"                         # launcher + clipboard history + window management
 cask "ghostty"                         # modern terminal
 cask "t3-code"                         # AI coding GUI
 cask "font-fira-code-nerd-font"        # primary coding font (Nerd Font for icons)
@@ -106,7 +104,7 @@ cask "font-jetbrains-mono-nerd-font"   # alt coding font
 
 # ---------------------------------------------------------------------
 # Cursor / VS Code extensions
-# Managed separately from Homebrew via macos/install-cursor.sh, which
+# Managed separately from Homebrew via ./install-cursor.sh, which
 # uses the cursor CLI directly. The list of extensions lives in
-# macos/cursor/cursor-extensions.txt.
+# cursor/cursor-extensions.txt.
 # ---------------------------------------------------------------------
