@@ -1,0 +1,117 @@
+// User-level tasks. Run with Cmd+Shift+R (or `task: spawn` palette).
+// Per-project tasks live in <project>/.zed/tasks.json and override.
+//
+// Docs: https://zed.dev/docs/tasks
+[
+  // ---- Go ----
+  {
+    "label": "go: build",
+    "command": "go build ./...",
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+  {
+    "label": "go: test all",
+    "command": "go test -v -race ./...",
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+  {
+    "label": "go: test current package",
+    "command": "go test -v -race",
+    "cwd": "$ZED_DIRNAME",
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+  {
+    "label": "go: test current function",
+    "command": "go test -v -race -run $ZED_SYMBOL",
+    "cwd": "$ZED_DIRNAME",
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+  {
+    "label": "go: vet",
+    "command": "go vet ./...",
+    "reveal": "always"
+  },
+  {
+    "label": "go: tidy",
+    "command": "go mod tidy",
+    "reveal": "always"
+  },
+  {
+    "label": "go: lint (golangci-lint)",
+    "command": "golangci-lint run ./...",
+    "reveal": "always"
+  },
+
+  // ---- Rust ----
+  {
+    "label": "rust: build",
+    "command": "cargo build",
+    "reveal": "always"
+  },
+  {
+    "label": "rust: build release",
+    "command": "cargo build --release",
+    "reveal": "always"
+  },
+  {
+    "label": "rust: test",
+    "command": "cargo test",
+    "reveal": "always"
+  },
+  {
+    "label": "rust: test current",
+    "command": "cargo test $ZED_SYMBOL",
+    "reveal": "always"
+  },
+  {
+    "label": "rust: clippy",
+    "command": "cargo clippy --all-targets --all-features -- -D warnings",
+    "reveal": "always"
+  },
+  {
+    "label": "rust: fmt",
+    "command": "cargo fmt --all",
+    "reveal": "always"
+  },
+  {
+    "label": "rust: doc (open)",
+    "command": "cargo doc --no-deps --open",
+    "reveal": "always"
+  },
+  {
+    "label": "rust: machete (unused deps)",
+    "command": "cargo machete",
+    "reveal": "always"
+  },
+  {
+    "label": "rust: udeps (nightly unused deps)",
+    "command": "cargo +nightly udeps",
+    "reveal": "always"
+  },
+  {
+    "label": "rust: bench",
+    "command": "cargo bench",
+    "reveal": "always"
+  },
+  {
+    "label": "rust: expand (macro debugging)",
+    "command": "cargo expand",
+    "reveal": "always"
+  },
+  {
+    "label": "rust: watch tests",
+    "command": "cargo watch -x 'test'",
+    "reveal": "always"
+  },
+
+  // ---- Generic ----
+  {
+    "label": "git: pull --rebase",
+    "command": "git pull --rebase --autostash",
+    "reveal": "always"
+  }
+]

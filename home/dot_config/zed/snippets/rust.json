@@ -1,0 +1,111 @@
+{
+  "Tests module scaffold": {
+    "prefix": "tt",
+    "body": [
+      "#[cfg(test)]",
+      "mod tests {",
+      "\tuse super::*;",
+      "",
+      "\t#[test]",
+      "\tfn ${1:test_name}() {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ],
+    "description": "#[cfg(test)] mod tests scaffold"
+  },
+  "Tokio async test": {
+    "prefix": "ttok",
+    "body": [
+      "#[tokio::test]",
+      "async fn ${1:test_name}() {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Async test with tokio runtime"
+  },
+  "impl block": {
+    "prefix": "impl",
+    "body": [
+      "impl ${1:Type} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "impl block"
+  },
+  "impl trait for type": {
+    "prefix": "implt",
+    "body": [
+      "impl ${1:Trait} for ${2:Type} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "impl Trait for Type"
+  },
+  "Standard derives": {
+    "prefix": "derive",
+    "body": ["#[derive(Debug, Clone, PartialEq, Eq, Hash)]"],
+    "description": "Standard derive set"
+  },
+  "Serde derives": {
+    "prefix": "derives",
+    "body": ["#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]"],
+    "description": "Serde-aware derive set"
+  },
+  "Error type with thiserror": {
+    "prefix": "err",
+    "body": [
+      "#[derive(Debug, thiserror::Error)]",
+      "pub enum ${1:Error} {",
+      "\t#[error(\"$2\")]",
+      "\t${3:Variant}(${4:#[from] std::io::Error}),",
+      "}"
+    ],
+    "description": "thiserror-derived error enum"
+  },
+  "Result type alias": {
+    "prefix": "result",
+    "body": ["pub type Result<T> = std::result::Result<T, ${1:Error}>;"],
+    "description": "Crate-local Result type alias"
+  },
+  "Anyhow main": {
+    "prefix": "main",
+    "body": [
+      "fn main() -> anyhow::Result<()> {",
+      "\t$0",
+      "\tOk(())",
+      "}"
+    ],
+    "description": "main returning anyhow::Result"
+  },
+  "Tokio main": {
+    "prefix": "maintok",
+    "body": [
+      "#[tokio::main]",
+      "async fn main() -> anyhow::Result<()> {",
+      "\t$0",
+      "\tOk(())",
+      "}"
+    ],
+    "description": "Async main with tokio runtime"
+  },
+  "tracing subscriber init": {
+    "prefix": "tracing",
+    "body": [
+      "tracing_subscriber::fmt()",
+      "\t.with_env_filter(tracing_subscriber::EnvFilter::from_default_env())",
+      "\t.init();"
+    ],
+    "description": "tracing-subscriber init"
+  },
+  "?-propagated map_err with context": {
+    "prefix": "ctxerr",
+    "body": ["${1:expr}.with_context(|| format!(\"${2:context}: {}\", $3))?"],
+    "description": "anyhow::Context with format args"
+  },
+  "matches! macro": {
+    "prefix": "matches",
+    "body": ["matches!(${1:expr}, ${2:Pattern})"],
+    "description": "matches! macro"
+  }
+}

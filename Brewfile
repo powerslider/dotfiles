@@ -84,6 +84,7 @@ brew "buildifier"          # Bazel BUILD formatter
 brew "ethereum"            # geth
 brew "exercism"            # exercism.io CLI
 brew "ffmpeg"              # media swiss-army-knife
+brew "delve"               # Go debugger (used by Zed's DAP integration)
 brew "goreleaser"          # Go release tooling
 brew "graphviz"            # dot
 brew "libpq"               # Postgres client lib

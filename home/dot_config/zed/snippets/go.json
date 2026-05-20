@@ -1,0 +1,113 @@
+{
+  "Table-driven test scaffold": {
+    "prefix": "tt",
+    "body": [
+      "tests := []struct {",
+      "\tname    string",
+      "\t${1:input}   ${2:string}",
+      "\twantErr bool",
+      "}{",
+      "\t{name: \"$3\", $1: ${4:\"\"}, wantErr: false},",
+      "}",
+      "for _, tt := range tests {",
+      "\tt.Run(tt.name, func(t *testing.T) {",
+      "\t\t$0",
+      "\t\tif (err != nil) != tt.wantErr {",
+      "\t\t\tt.Fatalf(\"got err = %v, wantErr = %v\", err, tt.wantErr)",
+      "\t\t}",
+      "\t})",
+      "}"
+    ],
+    "description": "Table-driven test scaffold"
+  },
+  "if err != nil { return err }": {
+    "prefix": "iferr",
+    "body": [
+      "if err != nil {",
+      "\treturn ${1:err}",
+      "}"
+    ],
+    "description": "Short error guard"
+  },
+  "if err != nil with wrapping": {
+    "prefix": "ifew",
+    "body": [
+      "if err != nil {",
+      "\treturn fmt.Errorf(\"${1:context}: %w\", err)",
+      "}"
+    ],
+    "description": "Error guard with wrapping"
+  },
+  "if err != nil with t.Fatal": {
+    "prefix": "iferrt",
+    "body": [
+      "if err != nil {",
+      "\tt.Fatalf(\"${1:operation} failed: %v\", err)",
+      "}"
+    ],
+    "description": "Error guard in tests"
+  },
+  "context.Context parameter": {
+    "prefix": "ctx",
+    "body": ["ctx context.Context"],
+    "description": "context.Context first parameter"
+  },
+  "func with ctx + error": {
+    "prefix": "fnctx",
+    "body": [
+      "func ${1:Name}(ctx context.Context, ${2:args}) (${3:result}, error) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Function taking ctx, returning (T, error)"
+  },
+  "defer cancel": {
+    "prefix": "dctx",
+    "body": [
+      "ctx, cancel := context.WithCancel(${1:context.Background()})",
+      "defer cancel()"
+    ],
+    "description": "ctx with cancel + defer"
+  },
+  "defer timeout": {
+    "prefix": "dctxt",
+    "body": [
+      "ctx, cancel := context.WithTimeout(${1:context.Background()}, ${2:5*time.Second})",
+      "defer cancel()"
+    ],
+    "description": "ctx with timeout + defer"
+  },
+  "main package skeleton": {
+    "prefix": "main",
+    "body": [
+      "package main",
+      "",
+      "import (",
+      "\t\"context\"",
+      "\t\"log/slog\"",
+      "\t\"os\"",
+      ")",
+      "",
+      "func main() {",
+      "\tif err := run(context.Background()); err != nil {",
+      "\t\tslog.Error(\"fatal\", \"err\", err)",
+      "\t\tos.Exit(1)",
+      "\t}",
+      "}",
+      "",
+      "func run(ctx context.Context) error {",
+      "\t$0",
+      "\treturn nil",
+      "}"
+    ],
+    "description": "main package with run() pattern"
+  },
+  "log/slog default logger setup": {
+    "prefix": "slog",
+    "body": [
+      "logger := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}))",
+      "slog.SetDefault(logger)"
+    ],
+    "description": "slog JSON handler setup"
+  }
+}

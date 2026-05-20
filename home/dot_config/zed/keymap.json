@@ -1,0 +1,76 @@
+// Zed keymap.
+//
+// `base_keymap: "Cursor"` in settings.json already gives us most of
+// Cursor's bindings (Cmd+K inline edit, Cmd+L chat, Cmd+I assistant,
+// Cmd+P file picker, Cmd+Shift+P palette). Below are productivity
+// supplements: panel toggles, multi-cursor sugar, line motion.
+//
+// Docs: https://zed.dev/docs/key-bindings
+[
+  // ---- Workspace-level panel toggles ----
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-b": "workspace::ToggleLeftDock",
+      "cmd-alt-b": "workspace::ToggleRightDock",
+      "cmd-j": "workspace::ToggleBottomDock",
+      "cmd-shift-e": "project_panel::ToggleFocus",
+      "cmd-shift-g": "git_panel::ToggleFocus",
+      "cmd-shift-d": "diagnostics::Deploy",
+      "cmd-shift-o": "outline::Toggle",
+      "cmd-t":       "project_symbols::Toggle"
+    }
+  },
+
+  // ---- Editor: navigation history (file/symbol/definition jumps) ----
+  // Zed doesn't track arbitrary cursor moves, but pane::GoBack records
+  // every "navigation event" — Go-To-Definition, Find References, file
+  // switches, search-result jumps, outline clicks. Bound at Editor
+  // (most specific) so it wins over default macOS word-motion. Word
+  // motion still available via Ctrl+Left/Right; line motion via
+  // Cmd+Left/Right.
+  {
+    "context": "Editor",
+    "bindings": {
+      "alt-left":  "pane::GoBack",
+      "alt-right": "pane::GoForward"
+    }
+  },
+
+  // ---- Editor: multi-cursor + line motion (VSCode/Cursor parity) ----
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-d":         "editor::SelectNext",
+      "cmd-shift-l":   "editor::SelectAllMatches",
+      "cmd-alt-up":    "editor::AddSelectionAbove",
+      "cmd-alt-down":  "editor::AddSelectionBelow",
+      "alt-up":        "editor::MoveLineUp",
+      "alt-down":      "editor::MoveLineDown",
+      "alt-shift-up":  "editor::DuplicateLineUp",
+      "alt-shift-down":"editor::DuplicateLineDown",
+      "cmd-shift-k":   "editor::DeleteLine",
+      "cmd-shift-enter":"editor::NewlineAbove",
+      "cmd-/":         "editor::ToggleComments",
+      "ctrl-cmd-up":   "editor::ScrollCursorTop",
+      "ctrl-cmd-down": "editor::ScrollCursorBottom"
+    }
+  },
+
+  // ---- Editor: LSP power moves ----
+  {
+    "context": "Editor && mode != full",
+    "bindings": {}
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "f12":          "editor::GoToDefinition",
+      "shift-f12":    "editor::FindAllReferences",
+      "f2":           "editor::Rename",
+      "ctrl-.":       "editor::ToggleCodeActions",
+      "cmd-shift-i":  "editor::Format",
+      "cmd-shift-h":  "editor::ToggleInlayHints"
+    }
+  }
+]
