@@ -18,6 +18,7 @@ tap "hashicorp/tap"
 # ---------------------------------------------------------------------
 brew "chezmoi"             # dotfile manager (this repo)
 brew "mise"                # one runtime manager (replaces nvm + jenv + asdf)
+brew "uv"                  # fast Python package + project manager (Astral)
 brew "sheldon"             # declarative zsh plugin manager (replaces antigen)
 
 # ---------------------------------------------------------------------
