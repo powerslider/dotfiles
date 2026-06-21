@@ -9,9 +9,10 @@ hooks are NOT managed here. They come from the
 - `CLAUDE.md` - global user instructions
 - `modify_settings.json` - chezmoi modify script. On every apply it
   merges the nitpickle marketplace registration, the enabled-plugin
-  entry, and the Linear MCP server into `settings.json`, preserving
-  whatever machine-local state is already there (hooks, model,
-  runtime-written plugin state).
+  entry, and the Linear and Serena MCP servers into `settings.json`,
+  preserving whatever machine-local state is already there (hooks,
+  model, runtime-written plugin state). The Serena binary itself is
+  installed via `uv tool install` by `bootstrap.sh`.
 - `nitpickle/` - global NitPickle defaults (policy and preferences),
   used by any repo without a local `.nitpickle/`
 

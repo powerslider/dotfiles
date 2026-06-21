@@ -14,4 +14,8 @@ printf '%s\n' "$current" | jq '
   }
   | .enabledPlugins["nitpickle@nitpickle"] = true
   | .mcpServers.linear //= {type: "sse", url: "https://mcp.linear.app/sse"}
+  | .mcpServers.serena = {
+    command: "serena",
+    args: ["start-mcp-server", "--context", "claude-code", "--project-from-cwd"]
+  }
 '

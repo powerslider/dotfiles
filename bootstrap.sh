@@ -6,7 +6,7 @@
 #   3. Removes legacy ~/.dotfile symlinks left by the old install.sh
 #   4. Initialises chezmoi with this repo as source and applies it
 #   5. Installs language runtimes via mise
-#   6. Installs the nitpickle Claude Code plugin
+#   6. Installs the nitpickle Claude Code plugin and Serena MCP server
 #   7. Applies the macOS defaults (defaults.sh)
 #
 # Idempotent: safe to re-run.
@@ -121,7 +121,7 @@ else
 fi
 
 # ---------------------------------------------------------------------
-# 6. Claude Code plugin
+# 6. Claude Code plugin + MCP servers
 # ---------------------------------------------------------------------
 if command -v claude > /dev/null 2>&1; then
     log "Installing Claude Code plugin: nitpickle"
@@ -133,6 +133,20 @@ if command -v claude > /dev/null 2>&1; then
     fi
 else
     warn "claude not on PATH, install Claude Code then run 'claude plugin install nitpickle@nitpickle'"
+fi
+
+# Serena MCP server binary. Registration in settings.json is handled by
+# the chezmoi apply above. This step installs the executable it launches.
+if command -v uv > /dev/null 2>&1; then
+    log "Installing Serena MCP server via uv"
+    if [[ $DRY_RUN -eq 1 ]]; then
+        echo "  [dry-run] would run: uv tool install -p 3.13 serena-agent"
+    else
+        uv tool install -p 3.13 serena-agent \
+            || warn "serena install failed, run 'uv tool install -p 3.13 serena-agent' manually"
+    fi
+else
+    warn "uv not on PATH, install it then run 'uv tool install -p 3.13 serena-agent'"
 fi
 
 # ---------------------------------------------------------------------

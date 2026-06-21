@@ -84,3 +84,17 @@ ws-new() {
         return 1
     fi
 }
+
+# Launch Claude Code with Serena's recommended system-prompt override,
+# which improves tool adherence on recent Claude Code versions, and with
+# permission prompts skipped. Opt-in, so plain `claude` (and Superset's
+# wrapper) stay untouched. All args pass through. Usage: cc [claude args...]
+cc() {
+    if ! command -v serena > /dev/null 2>&1; then
+        echo "cc: serena not on PATH, falling back to plain claude" >&2
+        claude --dangerously-skip-permissions "$@"
+        return
+    fi
+    claude --dangerously-skip-permissions \
+        --system-prompt "$(serena prompts print-cc-system-prompt-override)" "$@"
+}
