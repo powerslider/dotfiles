@@ -1,0 +1,28 @@
+# Repo-local NitPickle policy. Universal rules come from
+# ~/.claude/nitpickle/policy.yaml. This file adds only what is specific
+# to this repo.
+
+version: 1
+
+language: shell
+
+# Mirrors .github/workflows/lint.yml. No test suite exists. The Brewfile
+# resolution job runs in CI only (needs macOS runner plus network), so it
+# is not listed as a local command.
+commands:
+  lint: >-
+    find . -name '*.sh' -not -path './.git/*' -not -path './.claude/*'
+    -print0 | xargs -0 shellcheck --severity=warning -e SC1091
+  fmt: >-
+    find . -name '*.sh' -not -path './.git/*' -not -path './.claude/*'
+    -print0 | xargs -0 shfmt -d -i 4 -ci -bn -sr
+
+rules:
+  - chezmoi_source_only          # edit home/, never deployed files in ~
+  - idempotent_setup_scripts     # bootstrap and install scripts must be safe to re-run
+  - new_tools_enter_brewfile     # a new tool dependency is added to Brewfile, not installed ad hoc
+  - mise_owns_runtimes           # no nvm, jenv, pyenv, asdf, or per-language version managers
+
+generated_files:
+  - "dvorak/*.icns"
+  - "cursor/cursor-extensions.txt"

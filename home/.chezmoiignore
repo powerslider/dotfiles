@@ -1,0 +1,6 @@
+{{- /*
+Patterns are target paths relative to $HOME. Source-only assets
+(READMEs, helpers) go here so they never land in the home dir.
+*/ -}}
+
+.claude/README.md

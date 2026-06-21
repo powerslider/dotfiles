@@ -35,3 +35,7 @@ macos/bin/yt-dlp
 
 # chezmoi (when adopted)
 .chezmoiscripts/.cache/
+
+# NitPickle per-developer telemetry
+.nitpickle/validation-log.md
+.nitpickle/todo.md

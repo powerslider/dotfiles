@@ -5,7 +5,9 @@
 #   2. Installs everything in Brewfile (formulae, casks, vscode extensions)
 #   3. Removes legacy ~/.dotfile symlinks left by the old install.sh
 #   4. Initialises chezmoi with this repo as source and applies it
-#   5. Applies the macOS defaults (defaults.sh)
+#   5. Installs language runtimes via mise
+#   6. Installs the nitpickle Claude Code plugin
+#   7. Applies the macOS defaults (defaults.sh)
 #
 # Idempotent: safe to re-run.
 #
@@ -25,7 +27,7 @@ for arg in "$@"; do
         --dry-run) DRY_RUN=1 ;;
         --no-defaults) APPLY_DEFAULTS=0 ;;
         -h | --help)
-            sed -n '2,15p' "$0"
+            sed -n '2,17p' "$0"
             exit 0
             ;;
         *)
@@ -119,7 +121,22 @@ else
 fi
 
 # ---------------------------------------------------------------------
-# 6. macOS defaults
+# 6. Claude Code plugin
+# ---------------------------------------------------------------------
+if command -v claude > /dev/null 2>&1; then
+    log "Installing Claude Code plugin: nitpickle"
+    if [[ $DRY_RUN -eq 1 ]]; then
+        echo "  [dry-run] would run: claude plugin install nitpickle@nitpickle --scope user"
+    else
+        claude plugin install nitpickle@nitpickle --scope user \
+            || warn "plugin install failed, run 'claude plugin install nitpickle@nitpickle' manually"
+    fi
+else
+    warn "claude not on PATH, install Claude Code then run 'claude plugin install nitpickle@nitpickle'"
+fi
+
+# ---------------------------------------------------------------------
+# 7. macOS defaults
 # ---------------------------------------------------------------------
 if [[ $APPLY_DEFAULTS -eq 1 ]]; then
     log "Applying macOS defaults…"

@@ -1,7 +1,0 @@
-{{- /*
-chezmoi reads this from the source root. Files matched here are NOT
-applied to $HOME. We use it for source-only assets (READMEs, helpers
-that ship with a source dir but shouldn't land in the home dir).
-*/ -}}
-
-README.md

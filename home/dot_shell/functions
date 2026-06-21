@@ -9,3 +9,78 @@ ghostty-reload() {
         -e 'tell application "Ghostty" to activate' \
         -e 'tell application "System Events" to keystroke "," using {command down, shift down}'
 }
+
+# Create a Superset workspace. With a branch argument that branch is
+# used verbatim as the git branch and the workspace name (checked out
+# if it exists, forked from the project default if not). Without it,
+# everything is sequential: <project>-1, <project>-2, and so on. The
+# worktree dir always mirrors the branch, Superset derives it that way.
+# Superset itself only does random or AI names, so this lives here, on
+# top of the superset CLI (needs a one-time `superset auth login`).
+# Usage: ws-new <project> [branch]
+ws-new() {
+    local project="$1"
+    local base="${2:-}"
+    if [ -z "$project" ]; then
+        echo 'usage: ws-new <project> [from-branch]' >&2
+        return 2
+    fi
+
+    local pid pname
+    pid=$(superset projects list --json \
+        | jq -r --arg p "$project" '
+            (.projects? // .)[]?
+            | select((.name // "") | ascii_downcase == ($p | ascii_downcase))
+            | .id' | head -n1) || return 1
+    if [ -z "$pid" ]; then
+        echo "ws-new: no Superset project named '$project'" >&2
+        superset projects list >&2
+        return 1
+    fi
+    pname=$(superset projects list --json \
+        | jq -r --arg id "$pid" '(.projects? // .)[]? | select(.id == $id) | .name')
+
+    local branch name
+    if [ -n "$base" ]; then
+        branch="$base"
+    else
+        local next
+        next=$(superset workspaces list --project "$pid" --json \
+            | jq -r --arg p "$pname" '
+                [(.workspaces? // .)[]?
+                 | (.branch // .name // empty)
+                 | try (capture("^" + $p + "-(?<n>[0-9]+)$").n | tonumber)]
+                | (max // 0) + 1') || return 1
+        branch="${pname}-${next}"
+    fi
+    name="$branch"
+
+    echo "creating workspace '$name' on branch $branch" >&2
+    superset workspaces create --local --project "$pid" \
+        --name "$name" --branch "$branch" || return 1
+
+    # Superset nests worktrees under the project UUID with no name
+    # option, so keep a browsable name -> uuid symlink per project.
+    # Must match the worktree base dir set in Superset's settings.
+    local wtbase="$HOME/git-repos/worktrees"
+    if [ -d "$wtbase/$pid" ] && [ ! -e "$wtbase/$pname" ]; then
+        ln -s "$wtbase/$pid" "$wtbase/$pname"
+    fi
+
+    # The desktop UI does not surface CLI-created workspaces on its own.
+    # Opening via deep link makes it show up focused in the app.
+    local wsid
+    wsid=$(superset workspaces list --project "$pid" --json \
+        | jq -r --arg b "$branch" '
+            (.workspaces? // .)[]?
+            | select(.branch == $b and .type == "worktree") | .id' | head -n1)
+    if [ -n "$wsid" ]; then
+        superset workspaces open "$wsid" > /dev/null
+        echo "opened '$name' in Superset" >&2
+    else
+        echo "ws-new: no worktree workspace created for '$branch'." >&2
+        echo "Likely the branch is checked out in the main repo." >&2
+        echo "Switch it away (e.g. git checkout master) and re-run." >&2
+        return 1
+    fi
+}

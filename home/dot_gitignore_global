@@ -45,3 +45,9 @@ vendor/
 .log/
 tmp/
 *.bak
+
+# Claude Code (machine-local settings)
+**/.claude/settings.local.json
+
+# Superset workspace scripts kept local-only (work repos must stay clean)
+.superset/

@@ -1,0 +1,17 @@
+#!/bin/sh
+# chezmoi modify script for ~/.claude/settings.json. Merges the declarative
+# keys below into whatever is already there, so machine-local state (hooks,
+# model, runtime-written plugin state) survives every apply.
+set -eu
+
+current=$(cat)
+[ -n "$current" ] || current='{}'
+
+printf '%s\n' "$current" | jq '
+  .extraKnownMarketplaces.nitpickle = {
+    source: {source: "github", repo: "powerslider/nitpickle"},
+    autoUpdate: true
+  }
+  | .enabledPlugins["nitpickle@nitpickle"] = true
+  | .mcpServers.linear //= {type: "sse", url: "https://mcp.linear.app/sse"}
+'
