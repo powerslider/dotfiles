@@ -13,3 +13,7 @@ export GOPATH="$HOME/go"
 
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export GPG_TTY=$(tty)
+
+# Serena's first start spins up language servers and can exceed Claude
+# Code's default MCP startup timeout. 60s gives it room.
+export MCP_TIMEOUT=60000

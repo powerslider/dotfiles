@@ -1,21 +1,44 @@
 #!/bin/sh
 # chezmoi modify script for ~/.claude/settings.json. Merges the declarative
-# keys below into whatever is already there, so machine-local state (hooks,
-# model, runtime-written plugin state) survives every apply.
+# keys below into whatever is already there, so machine-local state (model,
+# runtime-written plugin state, and Superset's own hooks) survives every
+# apply. Serena hooks are upserted idempotently: any prior serena-hooks
+# entry is stripped before re-adding, so re-running never duplicates them
+# and Superset's entries in the same event arrays are left intact.
+#
+# MCP servers are NOT configured here. Claude Code reads them from
+# ~/.claude.json, not settings.json, so they are registered with
+# `claude mcp add --scope user` from bootstrap.sh instead. Any stray
+# mcpServers block in settings.json is dead config and is stripped.
 set -eu
 
 current=$(cat)
 [ -n "$current" ] || current='{}'
 
 printf '%s\n' "$current" | jq '
+  def upsert_serena($event; $entries):
+    .hooks //= {}
+    | .hooks[$event] = (
+        ((.hooks[$event] // [])
+          | map(select((.hooks // [])
+              | any((.command // "") | startswith("serena-hooks")) | not)))
+        + $entries
+      );
+
   .extraKnownMarketplaces.nitpickle = {
     source: {source: "github", repo: "powerslider/nitpickle"},
     autoUpdate: true
   }
   | .enabledPlugins["nitpickle@nitpickle"] = true
-  | .mcpServers.linear //= {type: "sse", url: "https://mcp.linear.app/sse"}
-  | .mcpServers.serena = {
-    command: "serena",
-    args: ["start-mcp-server", "--context", "claude-code", "--project-from-cwd"]
-  }
+  | del(.mcpServers)
+  | upsert_serena("PreToolUse"; [
+      {matcher: "", hooks: [{type: "command", command: "serena-hooks remind --client=claude-code"}]},
+      {matcher: "mcp__serena__*", hooks: [{type: "command", command: "serena-hooks auto-approve --client=claude-code"}]}
+    ])
+  | upsert_serena("SessionStart"; [
+      {matcher: "", hooks: [{type: "command", command: "serena-hooks activate --client=claude-code"}]}
+    ])
+  | upsert_serena("SessionEnd"; [
+      {matcher: "", hooks: [{type: "command", command: "serena-hooks cleanup --client=claude-code"}]}
+    ])
 '

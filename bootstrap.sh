@@ -135,8 +135,11 @@ else
     warn "claude not on PATH, install Claude Code then run 'claude plugin install nitpickle@nitpickle'"
 fi
 
-# Serena MCP server binary. Registration in settings.json is handled by
-# the chezmoi apply above. This step installs the executable it launches.
+# Serena MCP server: install the binary via uv, then register it with
+# Claude Code. Claude Code reads MCP servers from ~/.claude.json, not
+# settings.json, so registration uses `claude mcp add` rather than the
+# chezmoi settings merge. Serena's own hooks are merged into
+# settings.json by the chezmoi apply above.
 if command -v uv > /dev/null 2>&1; then
     log "Installing Serena MCP server via uv"
     if [[ $DRY_RUN -eq 1 ]]; then
@@ -147,6 +150,22 @@ if command -v uv > /dev/null 2>&1; then
     fi
 else
     warn "uv not on PATH, install it then run 'uv tool install -p 3.13 serena-agent'"
+fi
+
+if command -v claude > /dev/null 2>&1; then
+    if [[ $DRY_RUN -eq 1 ]]; then
+        echo "  [dry-run] would register the serena MCP server at user scope"
+    elif claude mcp get serena > /dev/null 2>&1; then
+        log "Serena MCP server already registered"
+    else
+        log "Registering Serena MCP server (user scope)"
+        # --add-mode no-memories disables Serena's memory and onboarding
+        # tools. Drop that flag to re-enable memories.
+        claude mcp add --scope user serena -- \
+            serena start-mcp-server --context claude-code --project-from-cwd \
+            --add-mode no-memories \
+            || warn "serena registration failed, run the 'claude mcp add' from the Serena docs manually"
+    fi
 fi
 
 # ---------------------------------------------------------------------
